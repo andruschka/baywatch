@@ -1,4 +1,4 @@
-# Baywatch (beta)
+# Baywatch (preview)
 
 	$npm install meteorite
 	$npm install meteor-npm
