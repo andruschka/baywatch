@@ -10,6 +10,25 @@ Template.home.getDate = (mills)->
   date = new Date(mills)
   return date.toString()
 
+Template.helper.settings = ()->
+  return Settings.find()
+
+Template.helper.which_span = (life)->
+  if life is "1"
+    span = "one day"
+  else
+    if life is "7"
+      span = "one week"
+    else
+      if life is "31"
+        span = "one month"
+      else if life is "365"
+        span = "one year"
+      else
+        span = "permanent"
+  return span
+
+
 Template.navbar.events
   'click #searchGo' : (e)->
     e.preventDefault()
@@ -39,7 +58,7 @@ Template.helper.events
     name = $('#set-name').val().trim()
     life = $('#set-life').val()
     grok = $('#set-grok').val().trim().toString()
-    
+
     if name? and name
       if grok? and grok
         Settings.insert({name: name, life: life, grok: grok})

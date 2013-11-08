@@ -32,7 +32,7 @@ td tr{
   background:#4BBCDB;
 }
 #darken{
-/*  display:none;*/
+  display:none;
   background-color:#000;
   z-index:1000;
   opacity:0.8;
@@ -43,7 +43,6 @@ td tr{
   width:100%;
 }
 #new-setting{
-  display:block;
 }
 #settings{
 }
