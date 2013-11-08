@@ -34,3 +34,22 @@ Template.helper.events
     e.preventDefault()
     $('.modal').fadeOut()
     $('#darken').fadeOut()
+  'click #add-setting' : (e)->
+    e.preventDefault()
+    name = $('#set-name').val().trim()
+    life = $('#set-life').val()
+    grok = $('#set-grok').val().trim().toString()
+    
+    if name? and name
+      if grok? and grok
+        Settings.insert({name: name, life: life, grok: grok})
+        $('#set-name').val("")
+        $("#set-life option[value=-1]").attr("selected", "selected")
+        $('#set-grok').val("")
+        console.log name
+        console.log life
+        console.log grok
+      else
+        alert "Please fill out all fields..."
+    else
+      alert "Please fill out all fields..."

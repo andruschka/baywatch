@@ -32,7 +32,7 @@ td tr{
   background:#4BBCDB;
 }
 #darken{
-  display:none;
+/*  display:none;*/
   background-color:#000;
   z-index:1000;
   opacity:0.8;
@@ -42,15 +42,18 @@ td tr{
   height:100%;
   width:100%;
 }
+#new-setting{
+  display:block;
+}
 #settings{
 }
-.new-setting {
-/*  resize:none;*/
+.grok-setting {
+  resize:none;
   min-height:80px;
   width:100%;
   width:fixed;
 }
-.new-setting:focus{
+.grok-setting:focus{
   border-color:#66AFE9;
   box-shadow:0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
   outline:0 none;

@@ -31,16 +31,22 @@
               <input id="set-name" type="text" class="form-control"  placeholder="Filter Name">
             </div>
             <div class="form-group">
-              <label for="set-life">Life span (in mins)</label>
-              <input id="set-life" type="text" class="form-control"  placeholder="Empty for permanent">
+              <label for="set-life">Life span</label>
+              <select id="set-life" class="form-control">
+                <option value="-1">permanent</option>
+                <option value="1">1 day</option>
+                <option value="7">1 week</option>
+                <option value="31">1 month</option>
+                <option value="365">1 year</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="set-grok">Grok filter</label>
-              <textarea id="set-grok" class="well panel-object new-setting" rows="5" placeholder="New setting..."/>
+              <textarea id="set-grok" class="well panel-object grok-setting" rows="5" placeholder="New setting..."/>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success add-setting">add</button> 
+            <button id="add-setting" class="btn btn-success">add</button> 
             <button class="btn btn-danger close-panels">close</button>
           </div>
         </div>
