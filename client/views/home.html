@@ -1,0 +1,24 @@
+<template name="home">
+  <div class="container home">        
+    {{#if loading}}
+      <h3>loading...</h3>
+    {{/if}}
+      
+    <table class="table table-striped table-hover" id="stream">
+      <thead>
+        <tr>
+          <th class="message">Log Message</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each logs}}
+        <tr>
+          <td>{{log}}</td>
+          <td class="tim">{{getDate timestamp}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

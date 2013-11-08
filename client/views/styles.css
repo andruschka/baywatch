@@ -1,0 +1,52 @@
+body {
+  padding-top:70px;
+}
+.home{
+}
+.navLogo {
+  color:#fff!important;
+}
+.navbar-fixed-top {
+  z-index:1000;
+}
+.logo {
+  color:#4BBCDB;
+}
+.beta {
+  font-size:11px;
+  color:#CCCCCC;
+}
+.message {
+  width:75%;
+}
+td tr{
+  overflow:ellipsis;
+}
+.tim{
+  font-size:12px;
+}
+.search-btn {
+  background:#4BBCDB;
+}
+.settings-btn {
+  background:#4BBCDB;
+}
+#darken{
+  display:none;
+  background-color:#000;
+  z-index:1000;
+  opacity:0.8;
+  position:fixed;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+}
+#settings{
+}
+.new-setting {
+  resize:none;
+  min-height:60px;
+  width:100%;
+  width:fixed;
+}

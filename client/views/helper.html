@@ -1,0 +1,52 @@
+<template name="helper">
+  
+  <!-- ALL SETTINGS PANEL -->
+  <div class="modal" id="settings">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Settings</h4>
+          </div>
+          <div class="modal-body">
+            <table class="">
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger close-panels">close</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  <!-- NEW SETTING PANEL -->
+  <div class="modal" id="new-setting">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">New setting</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input type="text" class="form-control" id="" placeholder="Filter Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Life span</label>
+              <input type="text" class="form-control" id="" placeholder="Empty for permanent">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Grok filter</label>
+              <textarea class="well panel-object new-setting" placeholder="New setting..."/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success add-setting">add</button> 
+            <button class="btn btn-danger close-panels">close</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  <!-- DARK BACKGROUND FOR SETTINGS -->
+  <div id="darken"></div>
+</template>
