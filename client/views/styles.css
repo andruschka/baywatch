@@ -32,7 +32,7 @@ td tr{
   background:#4BBCDB;
 }
 #darken{
-  display:none;
+/*  display:none;*/
   background-color:#000;
   z-index:1000;
   opacity:0.8;
@@ -43,8 +43,10 @@ td tr{
   width:100%;
 }
 #new-setting{
+
 }
 #settings{
+  display:block!important;
 }
 .grok-setting {
   resize:none;
@@ -56,4 +58,10 @@ td tr{
   border-color:#66AFE9;
   box-shadow:0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
   outline:0 none;
+}
+.edit-setting{
+  color:rgba(243,196,51,1)!important;
+}
+.delete-setting{
+  color:rgba(201,50,24,1)!important;
 }

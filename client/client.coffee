@@ -53,6 +53,7 @@ Template.helper.events
     e.preventDefault()
     $('.modal').fadeOut()
     $('#darken').fadeOut()
+  
   'click #add-setting' : (e)->
     e.preventDefault()
     name = $('#set-name').val().trim()
@@ -72,3 +73,13 @@ Template.helper.events
         alert "Please fill out all fields..."
     else
       alert "Please fill out all fields..."
+  
+  'click .edit-setting' : (e)->
+    e.preventDefault()
+    console.log 'Edit: ' + this._id
+
+  'click .delete-setting' : (e)->
+    e.preventDefault()
+    self = this
+    if confirm 'Are you sure that you want to delete this setting?'
+      Settings.remove({_id: self._id})
