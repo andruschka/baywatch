@@ -12,15 +12,14 @@ body {
 .logo {
   color:#4BBCDB;
 }
-.beta {
-  font-size:11px;
-  color:#CCCCCC;
+#settingsGo{
+  cursor:pointer;
+}
+#add-setting{
+  cursor:pointer;
 }
 .message {
   width:75%;
-}
-td tr{
-  overflow:ellipsis;
 }
 .tim{
   font-size:12px;
@@ -32,7 +31,7 @@ td tr{
   background:#4BBCDB;
 }
 #darken{
-/*  display:none;*/
+  display:none;
   background-color:#000;
   z-index:1000;
   opacity:0.8;
@@ -42,11 +41,9 @@ td tr{
   height:100%;
   width:100%;
 }
-#new-setting{
-
+#new-setting-panel{
 }
-#settings{
-  display:block!important;
+#settings-panel{
 }
 .grok-setting {
   resize:none;
@@ -59,9 +56,9 @@ td tr{
   box-shadow:0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
   outline:0 none;
 }
-.edit-setting{
+.edit-setting-btn{
   color:rgba(243,196,51,1)!important;
 }
-.delete-setting{
+.delete-setting-btn{
   color:rgba(201,50,24,1)!important;
 }

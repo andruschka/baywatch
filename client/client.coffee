@@ -1,7 +1,9 @@
 Logs = new Meteor.Collection 'logs'
 Settings = new Meteor.Collection 'settings'
+
 Meteor.subscribe 'all_logs'
 Meteor.subscribe 'all_settings'
+Session.setDefault 'editSet', ''
 
 Template.home.logs = ()->
   return Logs.find()
@@ -28,7 +30,6 @@ Template.helper.which_span = (life)->
         span = "permanent"
   return span
 
-
 Template.navbar.events
   'click #searchGo' : (e)->
     e.preventDefault()
@@ -41,11 +42,11 @@ Template.navbar.events
       alert "No empty search"
   'click #settingsGo' : (e)->
     e.preventDefault()
-    $('#settings').fadeIn()
+    $('#settings-panel').fadeIn()
     $('#darken').fadeIn()
   'click #add-setting' : (e)->
     e.preventDefault()
-    $('#new-setting').fadeIn()
+    $('#new-setting-panel').fadeIn()
     $('#darken').fadeIn()
 
 Template.helper.events
@@ -74,11 +75,12 @@ Template.helper.events
     else
       alert "Please fill out all fields..."
   
-  'click .edit-setting' : (e)->
+  'click .edit-setting-btn' : (e)->
     e.preventDefault()
-    console.log 'Edit: ' + this._id
+    self = this
+    console.log self
 
-  'click .delete-setting' : (e)->
+  'click .delete-setting-btn' : (e)->
     e.preventDefault()
     self = this
     if confirm 'Are you sure that you want to delete this setting?'

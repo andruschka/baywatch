@@ -1,35 +1,18 @@
 <template name="helper">
-  
+
   <!-- ALL SETTINGS PANEL -->
-  <div class="modal" id="settings">
+  <div class="modal" id="settings-panel">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Settings</h4>
           </div>
           <div class="modal-body">
-            <table class="">
-              <table class="table table-striped table-hover" id="all-settings-panel">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Life span</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#each settings}}
-                  <tr>
-                    <td>{{name}}</td>
-                    <td>{{which_span life}}</td>
-                    <td>
-                      <button class="btn btn-sml edit-setting btn-link">edit</button>
-                      <button class="btn btn-sml delete-setting btn-link">delete</button>
-                    </td>
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </table>
+              {{#each settings}}
+                <h3>{{name}}</h3>
+                <span class=""><a class="edit-setting-btn btn-link">edit</a> <a class="delete-setting-btn btn-link">delete</a></span>
+                <br/>
+              {{/each}}
           </div>
           <div class="modal-footer">
             <button class="btn btn-danger close-panels">close</button>
@@ -39,7 +22,7 @@
   </div>
   
   <!-- NEW SETTING PANEL -->
-  <div class="modal" id="new-setting">
+  <div class="modal" id="new-setting-panel">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -72,7 +55,8 @@
         </div>
       </div>
   </div>
-  
+    
   <!-- DARK BACKGROUND FOR PANELS -->
   <div id="darken"></div>
+  
 </template>
