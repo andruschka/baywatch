@@ -5,7 +5,7 @@
 	$cd /dir/to/project/baywatch/
 	$mrt
 
-This is a Tool for receiving Log- Messages via TCP (RsyslogD), parsing them with grok and saving to a MongoDB / monitoring them in your Web browser - IN REALTIME.   
+This is a Tool for receiving Log- Messages via TCP (RsyslogD), parsing them with rgx and saving to a MongoDB / monitoring them in your Web browser - IN REALTIME.   
 made with meteor <3   
       
 ### Configuration for rsyslogd
@@ -22,6 +22,6 @@ made with meteor <3
 	*.* @@baywatch-server.de:6969
 
 ### ToDo 
-- logmessage parsing with grok
+- logmessage parsing with rgx
 - search function
 - add a graph / chart (http://www.chartjs.org/)

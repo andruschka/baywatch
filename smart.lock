@@ -7,18 +7,24 @@
   "dependencies": {
     "basePackages": {
       "bootstrap-3": {},
-      "font-awesome-4": {}
+      "font-awesome-4": {},
+      "npm": {}
     },
     "packages": {
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v0.3.5",
-        "commit": "47996f67f3987c9f82117394effcbe1586a4fe29"
+        "tag": "v0.3.6",
+        "commit": "711dbcabe333c8714298b2fd1de97fdcdae6efa7"
       },
       "font-awesome-4": {
         "git": "https://github.com/michaelbishop/meteor-font-awesome-4.git",
         "tag": "v4.0.0",
         "commit": "c28b5a0f2a2bd233c495642b40a167eda95172f5"
+      },
+      "npm": {
+        "git": "https://github.com/arunoda/meteor-npm.git",
+        "tag": "v0.2.2",
+        "commit": "ad83acff83385d5ea05997c8bbc2d7493ba4c04e"
       }
     }
   }

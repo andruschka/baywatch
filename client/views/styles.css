@@ -45,13 +45,13 @@ body {
 }
 #settings-panel{
 }
-.grok-setting {
+.rgx-setting {
   resize:none;
   min-height:80px;
   width:100%;
   width:fixed;
 }
-.grok-setting:focus{
+.rgx-setting:focus{
   border-color:#66AFE9;
   box-shadow:0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
   outline:0 none;

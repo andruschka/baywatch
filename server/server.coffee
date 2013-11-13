@@ -1,4 +1,4 @@
-Logs = new Meteor.Collection 'logs'
+@Logs = new Meteor.Collection 'logs'
 Settings = new Meteor.Collection 'settings'
 
 Meteor.publish "all_logs", ()->

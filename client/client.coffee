@@ -59,17 +59,17 @@ Template.helper.events
     e.preventDefault()
     name = $('#set-name').val().trim()
     life = $('#set-life').val()
-    grok = $('#set-grok').val().trim().toString()
+    rgx = $('#set-rgx').val().trim().toString()
 
     if name? and name
-      if grok? and grok
-        Settings.insert({name: name, life: life, grok: grok})
+      if rgx? and rgx
+        Settings.insert({name: name, life: life, rgx: rgx})
         $('#set-name').val("")
         $("#set-life option[value=-1]").attr("selected", "selected")
-        $('#set-grok').val("")
+        $('#set-rgx').val("")
         console.log name
         console.log life
-        console.log grok
+        console.log rgx
       else
         alert "Please fill out all fields..."
     else
