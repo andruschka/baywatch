@@ -5,7 +5,6 @@
   },
   "packages": {
     "bootstrap-3": {},
-    "font-awesome-4": {},
-    "npm": {}
+    "font-awesome-4": {}
   }
 }
