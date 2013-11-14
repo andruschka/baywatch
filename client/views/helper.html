@@ -44,12 +44,12 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="set-rgx">Regex filter (can be an array, split by '###')</label>
-              <input id="set-rgx"  class="well panel-object rgx-setting" rows="5" placeholder="New setting..."/>
-              Output-Pattern format must be:<br/>
-              YEAR-MONTH-DAY HOUR:MINUTES:SECONDS SYSTEMTAG CONTENT<br/>
-              e.g.<br/>
-              2013-11-13 11:13:45 MyCoolSystem This is my log content
+              <label for="set-rgx-date">RegExp filter for the DATE</label>
+              <input id="set-rgx-date"  class="form-control" rows="5" placeholder="New regular expression"/>
+            </div>
+            <div class="form-group">
+              <label for="set-rgx-content">Regex filter for the CONTENT</label>
+              <input id="set-rgx-content"  class="form-control" rows="5" placeholder="New regular expression"/>
             </div>
           </div>
           <div class="modal-footer">

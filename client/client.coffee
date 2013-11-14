@@ -30,6 +30,12 @@ Template.helper.which_span = (life)->
         span = "permanent"
   return span
 
+# mongo debug helper
+Template.home.events
+  'click .line' : (e)->
+    e.preventDefault()
+    console.log this
+
 Template.navbar.events
   'click #searchGo' : (e)->
     e.preventDefault()
@@ -59,20 +65,21 @@ Template.helper.events
     e.preventDefault()
     name = $('#set-name').val().trim()
     life = $('#set-life').val()
-    rgx = $('#set-rgx').val().trim().toString()
-
-    if name? and name
-      Settings.insert({name: name, life: life, rgx: rgx})
-      $('#set-name').val("")
-      $("#set-life option[value=-1]").attr("selected", "selected")
-      $('#set-rgx').val("")
-      $('#new-setting-panel').fadeOut()
-      $('#darken').fadeOut()
-      console.log name
-      console.log life
-      console.log rgx
-    else
-      alert "You have to give the setting one unique name..."
+    # Seperate/ADD RegExp for Timestamp and Content
+    # rgx = $('#set-rgx').val().trim().toString()
+    # 
+    # if name? and name
+    #   Settings.insert({name: name, life: life, rgx: rgx})
+    #   $('#set-name').val("")
+    #   $("#set-life option[value=-1]").attr("selected", "selected")
+    #   $('#set-rgx').val("")
+    #   $('#new-setting-panel').fadeOut()
+    #   $('#darken').fadeOut()
+    #   console.log name
+    #   console.log life
+    #   console.log rgx
+    # else
+    #   alert "You have to give the setting one unique name..."
   
   'click .edit-setting-btn' : (e)->
     e.preventDefault()

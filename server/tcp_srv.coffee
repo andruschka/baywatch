@@ -19,16 +19,27 @@ net.createServer (sock)->
       setting = Settings.findOne({name: sysId})
       # console.log setting
       if setting and setting? and setting.rgx and setting.rgx?
-        console.log setting.rgx
+        # parse line with regex config
+        rgxStr = setting.rgx.toString()
+        rgxSet = rgxStr.split('###')
+        lineSts = []
+        for rgx in rgxSet
+          newRgx = new RegExp(rgx)
+          if newRgx.test(line) is true
+            resArr = line.match(newRgx)
+            lineSts.push resArr[0]
+        lineDate = lineSts[0].trim()
+        lineTime = lineSts[1].trim()
+        lineSys = lineSts[2].trim()
+        lineCont = lineSts[3].trim()
+        # Logs.insert({'log':line, 'timestamp':timestamp, '@date':lineDate, '@time':lineTime, '@system':lineSys, '@content':lineCont})
+        dateObj = new Date(lineDate + "T" + lineTime + "Z")
+        console.log dateObj
       else
         console.log "there is no regex setting..." 
-
-      # pipe line through regex config if there's one
-      # Insert parsed logline into DB
-
-      # Logs.insert({'log':line, 'timestamp':timestamp})
+        Logs.insert({'log':line, 'timestamp':timestamp})
     .run()
-  
+
   sock.on 'close', (data)->
     console.log 'CLOSED DOWN'
 
