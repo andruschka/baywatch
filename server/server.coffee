@@ -1,5 +1,5 @@
 @Logs = new Meteor.Collection 'logs'
-Settings = new Meteor.Collection 'settings'
+@Settings = new Meteor.Collection 'settings'
 
 Meteor.publish "all_logs", ()->
   Logs.find()

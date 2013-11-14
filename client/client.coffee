@@ -6,7 +6,7 @@ Meteor.subscribe 'all_settings'
 Session.setDefault 'editSet', ''
 
 Template.home.logs = ()->
-  return Logs.find()
+  return Logs.find({},{sort: {timestamp: -1}})
 
 Template.home.getDate = (mills)->
   date = new Date(mills)
@@ -62,18 +62,17 @@ Template.helper.events
     rgx = $('#set-rgx').val().trim().toString()
 
     if name? and name
-      if rgx? and rgx
-        Settings.insert({name: name, life: life, rgx: rgx})
-        $('#set-name').val("")
-        $("#set-life option[value=-1]").attr("selected", "selected")
-        $('#set-rgx').val("")
-        console.log name
-        console.log life
-        console.log rgx
-      else
-        alert "Please fill out all fields..."
+      Settings.insert({name: name, life: life, rgx: rgx})
+      $('#set-name').val("")
+      $("#set-life option[value=-1]").attr("selected", "selected")
+      $('#set-rgx').val("")
+      $('#new-setting-panel').fadeOut()
+      $('#darken').fadeOut()
+      console.log name
+      console.log life
+      console.log rgx
     else
-      alert "Please fill out all fields..."
+      alert "You have to give the setting one unique name..."
   
   'click .edit-setting-btn' : (e)->
     e.preventDefault()

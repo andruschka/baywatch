@@ -12,13 +12,21 @@ net.createServer (sock)->
     Fiber ()->
       timestamp = Date.now()
       # get system identifier from line
-      sysId = line.match(/\s[A-Za-z]*:\s/)[0]
+      rgxSysId = line.match(/\s[A-Za-z]*:\s/)[0]
+      sysId = rgxSysId.trim().toString().slice(0,-1)
       console.log sysId
       # read Setting by identifier
-      # pipe line through grok config if there's one
-      
-      
-      Logs.insert({'log':line, 'timestamp':timestamp})
+      setting = Settings.findOne({name: sysId})
+      # console.log setting
+      if setting and setting? and setting.rgx and setting.rgx?
+        console.log setting.rgx
+      else
+        console.log "there is no regex setting..." 
+
+      # pipe line through regex config if there's one
+      # Insert parsed logline into DB
+
+      # Logs.insert({'log':line, 'timestamp':timestamp})
     .run()
   
   sock.on 'close', (data)->
