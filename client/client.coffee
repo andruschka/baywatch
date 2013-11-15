@@ -14,7 +14,7 @@ Template.home.getDate = (mills)->
 
 Template.helper.settings = ()->
   return Settings.find()
-
+  
 Template.helper.which_span = (life)->
   if life is "1"
     span = "one day"
@@ -65,21 +65,38 @@ Template.helper.events
     e.preventDefault()
     name = $('#set-name').val().trim()
     life = $('#set-life').val()
-    # Seperate/ADD RegExp for Timestamp and Content
-    # rgx = $('#set-rgx').val().trim().toString()
-    # 
-    # if name? and name
-    #   Settings.insert({name: name, life: life, rgx: rgx})
-    #   $('#set-name').val("")
-    #   $("#set-life option[value=-1]").attr("selected", "selected")
-    #   $('#set-rgx').val("")
-    #   $('#new-setting-panel').fadeOut()
-    #   $('#darken').fadeOut()
-    #   console.log name
-    #   console.log life
-    #   console.log rgx
-    # else
-    #   alert "You have to give the setting one unique name..."
+    rgx_date = $('#set-rgx-date').val().trim().toString()
+    rgx_content = $('#set-rgx-content').val().trim().toString()
+    
+    if name? and name
+      if rgx_date? and rgx_date
+        if rgx_content? and rgx_content
+          Settings.insert({name: name, life: life, regex_date: rgx_date, regex_content: rgx_content})
+          # setting panel to default
+          $('#new-setting-panel').fadeOut()
+          $('#darken').fadeOut()
+          $('#set-name').val("")
+          $("#set-life option[value=-1]").attr("selected", "selected")
+          $('#set-rgx-date').val("")
+          $('#set-rgx-content').val("")
+        else
+          alert "You have to specify the RegExp for date AND content"
+      else
+        Settings.insert({name: name, life: life})
+        # setting panel to default
+        $('#new-setting-panel').fadeOut()
+        $('#darken').fadeOut()
+        $('#set-name').val("")
+        $("#set-life option[value=-1]").attr("selected", "selected")
+        $('#set-rgx-date').val("")
+        $('#set-rgx-content').val("")
+    else
+      alert "You have to specify a name."
+
+    console.log name
+    console.log life
+    console.log rgx_date
+    console.log rgx_content
   
   'click .edit-setting-btn' : (e)->
     e.preventDefault()

@@ -13,6 +13,7 @@
                 <span class=""><a class="edit-setting-btn btn-link">edit</a> <a class="delete-setting-btn btn-link">delete</a></span>
                 <br/>
               {{/each}}
+              {{any settings}}
           </div>
           <div class="modal-footer">
             <button class="btn btn-danger close-panels">close</button>
@@ -44,11 +45,11 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="set-rgx-date">RegExp filter for the DATE</label>
+              <label for="set-rgx-date">RegExp for the DATE</label>
               <input id="set-rgx-date"  class="form-control" rows="5" placeholder="New regular expression"/>
             </div>
             <div class="form-group">
-              <label for="set-rgx-content">Regex filter for the CONTENT</label>
+              <label for="set-rgx-content">RegExp for the CONTENT</label>
               <input id="set-rgx-content"  class="form-control" rows="5" placeholder="New regular expression"/>
             </div>
           </div>

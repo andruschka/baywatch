@@ -18,23 +18,19 @@ net.createServer (sock)->
       # read Setting by identifier
       setting = Settings.findOne({name: sysId})
       # console.log setting
-      if setting and setting? and setting.rgx and setting.rgx?
+      if setting and setting? and setting.regex_date and setting.regex_date?
         # parse line with regex config
-        rgxStr = setting.rgx.toString()
-        rgxSet = rgxStr.split('###')
-        lineSts = []
-        for rgx in rgxSet
-          newRgx = new RegExp(rgx)
-          if newRgx.test(line) is true
-            resArr = line.match(newRgx)
-            lineSts.push resArr[0]
-        lineDate = lineSts[0].trim()
-        lineTime = lineSts[1].trim()
-        lineSys = lineSts[2].trim()
-        lineCont = lineSts[3].trim()
+        rgx_date = new RegExp(setting.regex_date.toString())
+        rgx_content = new RegExp(setting.regex_content.toString())
+        if rgx_date.test(line) is true
+          if rgx_content.test(line)
+            lineDate = line.match(rgx_date)
+            lineContent = line.match(rgx_content)
+            # console.log lineDate[0]
+            # console.log lineContent[0]
+            dateObj = new Date(lineDate[0])
+            console.log dateObj
         # Logs.insert({'log':line, 'timestamp':timestamp, '@date':lineDate, '@time':lineTime, '@system':lineSys, '@content':lineCont})
-        dateObj = new Date(lineDate + "T" + lineTime + "Z")
-        console.log dateObj
       else
         console.log "there is no regex setting..." 
         Logs.insert({'log':line, 'timestamp':timestamp})
