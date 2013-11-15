@@ -8,14 +8,13 @@
       <thead>
         <tr>
           <th class="message">Log Message</th>
-          <th>Timestamp</th>
+          <!-- <th>Timestamp</th> -->
         </tr>
       </thead>
       <tbody>
         {{#each logs}}
         <tr>
-          <td class="line">{{log}}</td>
-          <td class="tim">{{getDate timestamp}}</td>
+          <td class="line">{{rawLine}}</td>
         </tr>
         {{/each}}
       </tbody>
