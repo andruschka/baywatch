@@ -87,7 +87,7 @@ Template.helper.events
         $('#new-setting-panel').fadeOut()
         $('#darken').fadeOut()
         $('#set-name').val("")
-        $("#set-life option[value=-1]").attr("selected", "selected")
+        $('#set-life option[value=-1]').attr("selected", "selected")
         $('#set-rgx-date').val("")
         $('#set-rgx-content').val("")
     else
@@ -108,3 +108,14 @@ Template.helper.events
     self = this
     if confirm 'Are you sure that you want to delete this setting?'
       Settings.remove({_id: self._id})
+  
+  'click .save-edit' : (e)->
+    e.preventDefault()
+    self = this
+    edPanel = '#edit-rgx-date-' + self._id
+    ecPanel = '#edit-rgx-content-' + self._id
+    edited_date = $(edPanel).val().trim().toString()
+    edited_content = $(ecPanel).val().trim().toString()
+    console.log edited_date
+    console.log edited_content
+

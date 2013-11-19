@@ -11,6 +11,12 @@
               {{#each settings}}
                 <h3>{{name}}</h3>
                 <span class=""><a class="edit-setting-btn btn-link">edit</a> <a class="delete-setting-btn btn-link">delete</a></span>
+                <div class="panel">
+                  <p>{{life}}</p>
+                  <p><input id="edit-rgx-date-{{_id}}"  class="form-control" rows="5" value="{{regex_date}}"/></p>
+                  <p><input id="edit-rgx-content-{{_id}}"  class="form-control" rows="5" value="{{regex_content}}"/></p>
+                  <p><button class="save-edit btn btn-success btn-sml">save</button></p>
+                </div>
                 <br/>
               {{/each}}
               {{any settings}}
