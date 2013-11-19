@@ -32,7 +32,8 @@ net.createServer (sock)->
             lineContent = line.match(rgx_content)[0].trim().toString()
             lineDateObj = new Date(lineDatestamp).toDateString()
             lineTimeObj = new Date(lineDatestamp).toTimeString()
-
+            
+        console.log "new log document: {" + sysId + " // " + lineDateObj + " // " + lineTimeObj + " // " + lineContent
         # insert raw line + millisec + parsed date / time / system / content
         # Logs.insert({'rawLine':line, 'incomeMills':timestamp, 'parsed': {'date':lineDateObj, 'time':lineTimeObj, 'system':sysId, 'content':lineContent}})
       else

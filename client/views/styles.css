@@ -24,6 +24,11 @@ body {
 .tim{
   font-size:12px;
 }
+#search{
+  background-color:#D9D9D9;
+  border-radius:15px;
+  border:;
+}
 .search-btn {
   background:#4BBCDB;
 }

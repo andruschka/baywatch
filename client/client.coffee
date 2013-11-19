@@ -6,7 +6,8 @@ Meteor.subscribe 'all_settings'
 Session.setDefault 'editSet', ''
 
 Template.home.logs = ()->
-  return Logs.find({},{sort: {timestamp: -1}})
+  keywords = new RegExp(Session.get('search_keywords'), 'i')
+  return Logs.find({rawLine:keywords},{sort: {incomeMills: -1}})
 
 Template.home.getDate = (mills)->
   date = new Date(mills)
@@ -37,15 +38,8 @@ Template.home.events
     console.log this
 
 Template.navbar.events
-  'click #searchGo' : (e)->
-    e.preventDefault()
-    tag = $('#search').val().trim()
-    if tag? and tag isnt ""
-      $('#search').val("")
-      console.log tag
-      result = Logs.find({}, {logs: tag})
-    else
-      alert "No empty search"
+  'keyup [name=search]': (e,context)->
+    Session.set('search_keywords', e.currentTarget.value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"))
   'click #settingsGo' : (e)->
     e.preventDefault()
     $('#settings-panel').fadeIn()
