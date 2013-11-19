@@ -31,11 +31,11 @@ Template.helper.which_span = (life)->
         span = "permanent"
   return span
 
-# mongo debug helper
-Template.home.events
-  'click .line' : (e)->
-    e.preventDefault()
-    console.log this
+# # mongo debug helper
+# Template.home.events
+#   'click .line' : (e)->
+#     e.preventDefault()
+#     console.log this
 
 Template.navbar.events
   'keyup [name=search]': (e,context)->

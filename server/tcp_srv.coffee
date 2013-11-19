@@ -29,18 +29,14 @@ net.createServer (sock)->
         if rgx_date.test(line) is true
           if rgx_content.test(line)
             lineDatestamp = line.match(rgx_date)[0].trim().toString()
+            lineMillis = new Date(lineDatestamp).getTime()
             lineContent = line.match(rgx_content)[0].trim().toString()
-            lineDateObj = new Date(lineDatestamp).toDateString()
-            lineTimeObj = new Date(lineDatestamp).toTimeString()
-            
-        console.log "new log document: {" + sysId + " // " + lineDateObj + " // " + lineTimeObj + " // " + lineContent
-        # insert raw line + millisec + parsed date / time / system / content
-        # Logs.insert({'rawLine':line, 'incomeMills':timestamp, 'parsed': {'date':lineDateObj, 'time':lineTimeObj, 'system':sysId, 'content':lineContent}})
+        # # DB insert raw line + incomme-millisec + parsed: date / time / system / content
+        Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
       else
         console.log "there is no regex setting..." 
-        
-        # insert raw line and millisec
-        # Logs.insert({'rawLine':line, 'incomeMills':timestamp})
+        # # DB insert only raw line and incomme- millisec
+        Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
 
     .run()
 

@@ -1,20 +1,38 @@
 <template name="home">
   <div class="container home">        
     {{#if loading}}
+      <br><br>
       <h3>loading...</h3>
+      <br><br>
     {{/if}}
       
-    <table class="table table-striped table-hover" id="stream">
+    <table class="table table-responsive table-striped table-condensed" id="stream">
       <thead>
         <tr>
+          <th style="color:#C7C7C7">Timestamp</th>
           <th class="message">Log Message</th>
-          <!-- <th>Timestamp</th> -->
         </tr>
       </thead>
       <tbody>
         {{#each logs}}
         <tr>
-          <td class="line">{{rawLine}}</td>
+          <!-- show timestamp -->
+          <td class="tim">
+            {{#if parsed}}
+              {{getDate parsed.lineMillis}}
+            {{else}}
+              {{getDate incomeMillis}}
+            {{/if}}
+          </td>
+          
+          <!-- show rawMessage -->
+          <td class="line">
+            {{#if parsed}}
+              {{parsed.content}}
+            {{else}}
+              {{rawLine}}
+            {{/if}}
+          </td>
         </tr>
         {{/each}}
       </tbody>
