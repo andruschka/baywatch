@@ -68,6 +68,8 @@ Template.helper.events
     e.preventDefault()
     $('.modal').fadeOut()
     $('#darken').fadeOut()
+    $('.edit-setting-container').hide()
+    
   
   'click #addNewSetting' : (e)->
     e.preventDefault()
@@ -125,6 +127,9 @@ Template.helper.events
   'click .edit-setting-btn' : (e)->
     e.preventDefault()
     self = this
+    
+    $("#new-life-#{self._id} option[value=#{self.life}]").attr("selected", "selected")
+    
     inpLife = $("#edit-life-#{self._id}")
     inpDate = $("#edit-rgx-date-#{self._id}")
     inpLvl = $("#edit-rgx-lvl-#{self._id}")
@@ -144,13 +149,9 @@ Template.helper.events
     e.preventDefault()
     self = this
 
-    # $('.edit-setting-container').hide()    
     newLife = $("#new-life-#{self._id}").val()
     newRgxDate = $("#edit-rgx-date-#{self._id}").val().toString().trim()
     newRgxLvl = $("#edit-rgx-lvl-#{self._id}").val().toString().trim()
     newRgxCon = $("#edit-rgx-content-#{self._id}").val().toString().trim()
     
-    if newLife is "0"
-      Settings.update({'_id':self._id}, {$set: {regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
-    else
-      Settings.update({'_id':self._id}, {$set: {life:newLife, regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
+    Settings.update({'_id':self._id}, {$set: {life:newLife, regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
