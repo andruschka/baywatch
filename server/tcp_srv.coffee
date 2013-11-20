@@ -11,9 +11,9 @@ net.createServer (sock)->
   console.log 'SERVER CONNECTED TO : ' + sock.remoteAddress + ':'+ sock.remotePort
 
   carrier.carry sock, (line)->
-    console.log 'got one line: ' + line
-
     Fiber ()->
+      console.log 'got one line: ' + line
+      
       timestamp = Date.now()
 
       # get systemID from line and find in Settings
@@ -22,20 +22,30 @@ net.createServer (sock)->
         sysId = rawSysId.trim().toString().slice(0,-1)
         setting = Settings.findOne({name: sysId})
 
-      # parse line with regex config from Settings
-      if setting and setting? and setting.regex_date and setting.regex_date?
-        rgx_date = new RegExp(setting.regex_date.toString())
-        rgx_content = new RegExp(setting.regex_content.toString())
+        # parse line with regex config from Settings
+        
+        # check if setting exists for this system and if date & content & log lvl  - regex config exists 
+        if setting and setting? and setting.regex_date and setting.regex_date?
+          rgx_date = new RegExp(setting.regex_date.toString())
+        if setting and setting? and setting.regex_content and setting.regex_content?
+          rgx_content = new RegExp(setting.regex_content.toString())
+        if setting and setting? and setting.regex_lvl and setting.regex_lvl?
+          rgx_lvl = new RegExp(setting.regex_lvl.toString())
+        # test rgx date
         if rgx_date.test(line) is true
-          if rgx_content.test(line)
-            lineDatestamp = line.match(rgx_date)[0].trim().toString()
-            lineMillis = new Date(lineDatestamp).getTime()
-            lineContent = line.match(rgx_content)[0].trim().toString()
-        # # DB insert raw line + incomme-millisec + parsed: date / time / system / content
-        Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
+          lineDatestamp = line.match(rgx_date)[0].trim().toString()
+          lineMillis = new Date(lineDatestamp).getTime()
+        # test rgx content
+        if rgx_content.test(line) is true
+          lineContent = line.match(rgx_content)[0].trim().toString()  
+        # test rgx log lvl
+        if rgx_lvl.test(line) is true
+          lineLvl = line.match(rgx_lvl)[0].trim().toString()
+
+        console.log sysId + " // " + lineMillis + " // " + lineLvl + " // " + lineContent
+        # Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
       else
-        console.log "there is no regex setting..." 
-        # # DB insert only raw line and incomme- millisec
+        console.log "there is no regex setting... but inserting in DB" 
         Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
 
     .run()

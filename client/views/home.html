@@ -5,37 +5,65 @@
       <h3>loading...</h3>
       <br><br>
     {{/if}}
-      
+
+    <!-- LOG STREAM TABLE -->
     <table class="table table-responsive table-striped table-condensed" id="stream">
+      <col width="10%"/>
+      <col width="20%"/>
+      <col width="10%" />
+      <col width="60%"/>
       <thead>
         <tr>
-          <th style="color:#C7C7C7">Timestamp</th>
-          <th class="message">Log Message</th>
+          <th class="">Sys.</th>
+          <th class="">Timestamp</th>
+          <th class=""><center>LVL</center></th>
+          <th class="">Log Message</th>
         </tr>
       </thead>
       <tbody>
         {{#each logs}}
         <tr>
-          <!-- show timestamp -->
-          <td class="tim">
+
+          <!-- system -->
+          <td class="systems">
+            {{#if parsed}}
+              {{parsed.system}}
+            {{else}}
+              NA
+            {{/if}}
+          </td>
+
+          <!-- timestamp -->
+          <td class="times">
             {{#if parsed}}
               {{getDate parsed.lineMillis}}
             {{else}}
               {{getDate incomeMillis}}
             {{/if}}
           </td>
-          
-          <!-- show rawMessage -->
-          <td class="line">
-            {{#if parsed}}
-              {{parsed.content}}
+
+          <!-- flag -->
+          <td class="flags"><center>
+            {{#if parsed.flag}}
+              <span class="{{getFlagClass parsed.flag}}">{{parsed.flag}}</span>
             {{else}}
-              {{rawLine}}
+              <span class="flagNA">NA</span>
+            {{/if}}
+          </center></td>
+
+          <!-- message -->
+          <td class="lines">
+            {{#if parsed}}
+              <span class="lineParsed">{{parsed.content}}</span>
+            {{else}}
+              <span class="lineNotParsed">{{rawLine}}</span>
             {{/if}}
           </td>
+
         </tr>
         {{/each}}
       </tbody>
     </table>
+
   </div>
 </template>

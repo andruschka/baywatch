@@ -7,11 +7,25 @@ Session.setDefault 'editSet', ''
 
 Template.home.logs = ()->
   keywords = new RegExp(Session.get('search_keywords'), 'i')
-  return Logs.find({rawLine:keywords},{sort: {incomeMills: -1}})
+  return Logs.find({rawLine:keywords},{sort: {incomeMillis: -1}})
 
 Template.home.getDate = (mills)->
   date = new Date(mills)
-  return date.toString()
+  return date.toISOString()
+
+Template.home.getFlagClass = (flag)->
+  flag = flag.toString().trim()
+  if flag is "INFO" or "info"
+    result = "flagInfo"
+  else
+    if flag is "WARNING" or "warning"
+      result = "flagWarning"
+    else
+      if flas is "ERROR" or "error"
+        result = "flagError"
+      else
+        result = "flagNA"
+  return result
 
 Template.helper.settings = ()->
   return Settings.find()
@@ -31,20 +45,20 @@ Template.helper.which_span = (life)->
         span = "permanent"
   return span
 
-# # mongo debug helper
-# Template.home.events
-#   'click .line' : (e)->
-#     e.preventDefault()
-#     console.log this
+# mongo debug helper
+Template.home.events
+  'click .line' : (e)->
+    e.preventDefault()
+    console.log this
 
 Template.navbar.events
   'keyup [name=search]': (e,context)->
     Session.set('search_keywords', e.currentTarget.value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"))
-  'click #settingsGo' : (e)->
+  'click #showSettings' : (e)->
     e.preventDefault()
     $('#settings-panel').fadeIn()
     $('#darken').fadeIn()
-  'click #add-setting' : (e)->
+  'click #addSetting' : (e)->
     e.preventDefault()
     $('#new-setting-panel').fadeIn()
     $('#darken').fadeIn()
@@ -55,17 +69,18 @@ Template.helper.events
     $('.modal').fadeOut()
     $('#darken').fadeOut()
   
-  'click #add-setting' : (e)->
+  'click #addNewSetting' : (e)->
     e.preventDefault()
     name = $('#set-name').val().trim()
     life = $('#set-life').val()
     rgx_date = $('#set-rgx-date').val().trim().toString()
+    rgx_flags = $('#set-rgx-flags').val().trim().toString()
     rgx_content = $('#set-rgx-content').val().trim().toString()
     
     if name? and name
       if rgx_date? and rgx_date
         if rgx_content? and rgx_content
-          Settings.insert({name: name, life: life, regex_date: rgx_date, regex_content: rgx_content})
+          Settings.insert({name: name, life: life, regex_date: rgx_date, regex_flags: rgx_flags, regex_content: rgx_content})
           # setting panel to default
           $('#new-setting-panel').fadeOut()
           $('#darken').fadeOut()

@@ -13,44 +13,16 @@ body {
 .logo {
   color:#4BBCDB;
 }
-#settingsGo{
+#showSettings{
   cursor:pointer;
 }
-#add-setting{
+#addSetting{
   cursor:pointer;
-}
-#stream{
-  color:#17D43D;
-  table-layout:fixed;
-  overflow:inherit;
-}
-.message {
-  width:75%;
-}
-.line{
-  font-size:14px;
-  white-space:nowrap;
-  word-break:inherit;
-  overflow:hidden;
-}
-.tim{
-  color:#C7C7C7;
-  font-size:14px;
-  white-space:nowrap;
-  word-break:inherit;
-  overflow:inherit;
-  
 }
 #search{
   background-color:#D9D9D9;
   border-radius:15px;
   border:;
-}
-.search-btn {
-  background:#4BBCDB;
-}
-.settings-btn {
-  background:#4BBCDB;
 }
 #darken{
   display:none;
@@ -77,6 +49,58 @@ body {
 }
 .delete-setting-btn{
   color:rgba(201,50,24,1)!important;
+}
+
+
+
+/* ######## STREAM TABLE STYLES ######## */
+#stream{
+/*  color:#17D43D;*/
+  table-layout:fixed;
+  overflow:inherit;
+}
+th {
+  color:#C7C7C7;
+}
+.systems{
+  color:#f4fff6;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+.lines{
+  font-size:14px;
+  white-space:nowrap;
+  word-break:inherit;
+  overflow:hidden;
+}
+.lineParsed{
+  color:#f4fff6;
+/*  color:#00c126;*/
+}
+.lineNotParsed{
+  color:#c6c6c6;
+/*  color:#22a43b;*/
+}
+.flagNA{
+  color:#75bbff;
+}
+.flagInfo{
+  color:#a2ff9e;
+}
+.flagError{
+  color:#fe424b;  
+}
+.flagWarning{
+  color:#ffca7f;
+}
+.times{
+  color:#C7C7C7;
+/*  font-size:14px;*/
+  white-space:nowrap;
+  word-break:inherit;
+  overflow:inherit; 
+}
+.table > thead > tr > th {
+    border-bottom: 1px solid #020c04;
 }
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
     background-color: #2E2E2E;
