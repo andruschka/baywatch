@@ -35,22 +35,33 @@ body {
   height:100%;
   width:100%;
 }
+.edit-set-bar{
+  font-size:15px;
+}
+.save-btn{
+  display:none;
+}
 #new-setting-panel{
 }
 #settings-panel{
+  display:block;
 }
 .rgx-setting:focus{
   border-color:#66AFE9;
   box-shadow:0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
   outline:0 none;
 }
-.edit-setting-btn{
-  color:rgba(243,196,51,1)!important;
+.show-setting-btn{
+}
+.new-life{
+  display:none;
 }
 .delete-setting-btn{
   color:rgba(201,50,24,1)!important;
 }
-
+.edit-setting-container{
+  display:none;
+}
 
 
 /* ######## STREAM TABLE STYLES ######## */

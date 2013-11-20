@@ -31,18 +31,20 @@ net.createServer (sock)->
           rgx_content = new RegExp(setting.regex_content.toString())
         if setting and setting? and setting.regex_lvl and setting.regex_lvl?
           rgx_lvl = new RegExp(setting.regex_lvl.toString())
-        # test rgx date
-        if rgx_date.test(line) is true
-          lineDatestamp = line.match(rgx_date)[0].trim().toString()
-          lineMillis = new Date(lineDatestamp).getTime()
-        # test rgx content
-        if rgx_content.test(line) is true
-          lineContent = line.match(rgx_content)[0].trim().toString()  
-        # test rgx log lvl
-        if rgx_lvl.test(line) is true
-          lineLvl = line.match(rgx_lvl)[0].trim().toString()
-
-        console.log sysId + " // " + lineMillis + " // " + lineLvl + " // " + lineContent
+        
+        console.log setting
+        # # test rgx date
+        # if rgx_date.test(line) is true
+        #   lineDatestamp = line.match(rgx_date)[0].trim().toString()
+        #   lineMillis = new Date(lineDatestamp).getTime()
+        # # test rgx content
+        # if rgx_content.test(line) is true
+        #   lineContent = line.match(rgx_content)[0].trim().toString()  
+        # # test rgx log lvl
+        # if rgx_lvl.test(line) is true
+        #   lineLvl = line.match(rgx_lvl)[0].trim().toString()
+        # 
+        # console.log sysId + " // " + lineMillis + " // " + lineLvl + " // " + lineContent
         # Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
       else
         console.log "there is no regex setting... but inserting in DB" 

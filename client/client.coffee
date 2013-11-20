@@ -71,22 +71,23 @@ Template.helper.events
   
   'click #addNewSetting' : (e)->
     e.preventDefault()
-    name = $('#set-name').val().trim()
+    name = $('#set-name').val().toString().trim()
     life = $('#set-life').val()
-    rgx_date = $('#set-rgx-date').val().trim().toString()
-    rgx_flags = $('#set-rgx-flags').val().trim().toString()
-    rgx_content = $('#set-rgx-content').val().trim().toString()
+    rgx_date = $('#set-rgx-date').val().toString().trim()
+    rgx_lvl = $('#set-rgx-lvl').val().toString().trim()
+    rgx_content = $('#set-rgx-content').val().toString().trim()
     
     if name? and name
       if rgx_date? and rgx_date
         if rgx_content? and rgx_content
-          Settings.insert({name: name, life: life, regex_date: rgx_date, regex_flags: rgx_flags, regex_content: rgx_content})
+          Settings.insert({name: name, life: life, regex_date: rgx_date, regex_lvl: rgx_lvl, regex_content: rgx_content})
           # setting panel to default
           $('#new-setting-panel').fadeOut()
           $('#darken').fadeOut()
           $('#set-name').val("")
           $("#set-life option[value=-1]").attr("selected", "selected")
           $('#set-rgx-date').val("")
+          $('#set-rgx-lvl').val("")
           $('#set-rgx-content').val("")
         else
           alert "You have to specify the RegExp for date AND content"
@@ -98,33 +99,56 @@ Template.helper.events
         $('#set-name').val("")
         $('#set-life option[value=-1]').attr("selected", "selected")
         $('#set-rgx-date').val("")
+        $('#set-rgx-lvl').val("")
         $('#set-rgx-content').val("")
     else
       alert "You have to specify a name."
-
     console.log name
     console.log life
     console.log rgx_date
+    console.log rgx_lvl
     console.log rgx_content
   
-  'click .edit-setting-btn' : (e)->
+  'click .show-setting-btn' : (e)->
     e.preventDefault()
     self = this
-    console.log self
+    editItem = $(".edit-#{this._id}")
+    $('.edit-setting-container').hide()
+    editItem.fadeIn()
 
   'click .delete-setting-btn' : (e)->
     e.preventDefault()
     self = this
     if confirm 'Are you sure that you want to delete this setting?'
       Settings.remove({_id: self._id})
-  
-  'click .save-edit' : (e)->
+
+  'click .edit-setting' : (e)->
     e.preventDefault()
     self = this
-    edPanel = '#edit-rgx-date-' + self._id
-    ecPanel = '#edit-rgx-content-' + self._id
-    edited_date = $(edPanel).val().trim().toString()
-    edited_content = $(ecPanel).val().trim().toString()
-    console.log edited_date
-    console.log edited_content
+    inpLife = $("#edit-life-#{self._id}")
+    inpDate = $("#edit-rgx-date-#{self._id}")
+    inpLvl = $("#edit-rgx-lvl-#{self._id}")
+    inpCon = $("#edit-rgx-content-#{self._id}")
 
+    inpLife.hide()
+    $("#new-life-#{self._id}").fadeIn()
+    $(".save-btn").fadeIn()
+    $("#edit-this-#{self._id}").hide()
+    inpDate.prop('disabled', false)
+    inpLvl.prop('disabled', false)
+    inpCon.prop('disabled', false)
+    
+    
+  'click .save-edit' : (e)->
+    e.preventDefault()
+    $('.edit-setting-container').hide()
+    self = this
+    # eDateIn = '#edit-rgx-date-' + self._id
+    # eLvlIn = '#edit-rgx-lvl-' + self._id
+    # eContentIn = '#edit-rgx-content-' + self._id
+    # edited_date = $(eDateIn).val().toString().trim()
+    # edited_lvl = $(eLvlIn).val().toString().trim()
+    # edited_content = $(eContentIn).val().toString().trim()
+    # console.log edited_date
+    # console.log edited_lvl
+    # console.log edited_content

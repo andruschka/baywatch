@@ -9,17 +9,45 @@
           </div>
           <div class="modal-body">
               {{#each settings}}
-                <h3>{{name}}</h3>
-                <span class=""><a class="edit-setting-btn btn-link">edit</a> <a class="delete-setting-btn btn-link">delete</a></span>
-                <div class="panel">
-                  <p>{{life}}</p>
-                  <p><input id="edit-rgx-date-{{_id}}"  class="form-control" rows="5" value="{{regex_date}}"/></p>
-                  <p><input id="edit-rgx-content-{{_id}}"  class="form-control" rows="5" value="{{regex_content}}"/></p>
-                  <p><button class="save-edit btn btn-success btn-sml">save</button></p>
+                <h3>
+                  {{name}}
+                  <span class="edit-set-bar">
+                    <a class="show-setting-btn btn-link"> <i class="fa fa-chevron-down"></i> </a>
+                  </span>
+                </h3>
+                <div class="edit-{{_id}} edit-setting-container">
+                  <div class="panel well">
+
+                    <label for="set-life">Life span</label> 
+                    <input class="form-control" id="edit-life-{{_id}}" type="text" value="{{which_span life}}" disabled>
+                    <select id="new-life-{{_id}}" class="new-life form-control">
+                      <option value="0">- leave the old one or choose new -</option>
+                      <option value="-1">permanent</option>
+                      <option value="1">1 day</option>
+                      <option value="7">1 week</option>
+                      <option value="31">1 month</option>
+                      <option value="365">1 year</option>
+                    </select>
+
+                    <label for="">RegExp for the DATE</label>
+                    <input class="form-control" id="edit-rgx-date-{{_id}}" type="text" placeholder="{{regex_date}}" disabled>
+
+                    <label for="">RegExp for the Log Level</label>
+                    <input class="form-control" id="edit-rgx-lvl-{{_id}}" type="text" placeholder="{{regex_lvl}}" disabled>
+
+                    <label for="">RegExp for the CONTENT</label>
+                    <input class="form-control" id="edit-rgx-content-{{_id}}" type="text" placeholder="{{regex_content}}" disabled>
+
+                    <p>
+                      <a id="edit-this-{{_id}}" class="edit-setting btn-link btn-sml"><i class="fa fa-edit"></i> edit</a>
+                      <a id="save-edit-{{_id}}" class="save-btn btn-link btn-sml">save</a> 
+                      &nbsp; &nbsp; &nbsp;
+                      <a class="delete-setting-btn btn-link"> <i class="fa fa-trash-o"></i> delete</a>
+                    </p>
+                  </div>
                 </div>
-                <br/>
               {{/each}}
-              {{any settings}}
+
           </div>
           <div class="modal-footer">
             <button class="btn btn-danger close-panels">close</button>
@@ -55,8 +83,8 @@
               <input id="set-rgx-date"  class="form-control" rows="5" placeholder="New regular expression"/>
             </div>
             <div class="form-group">
-              <label for="set-rgx-flags">RegExp for the FLAG</label>
-              <input id="set-rgx-flags"  class="form-control" rows="5" placeholder="New regular expression"/>
+              <label for="set-rgx-lvl">RegExp for the Log Level</label>
+              <input id="set-rgx-lvl"  class="form-control" rows="5" placeholder="New regular expression"/>
             </div>
             <div class="form-group">
               <label for="set-rgx-content">RegExp for the CONTENT</label>
