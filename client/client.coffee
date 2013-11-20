@@ -122,7 +122,7 @@ Template.helper.events
     if confirm 'Are you sure that you want to delete this setting?'
       Settings.remove({_id: self._id})
 
-  'click .edit-setting' : (e)->
+  'click .edit-setting-btn' : (e)->
     e.preventDefault()
     self = this
     inpLife = $("#edit-life-#{self._id}")
@@ -131,24 +131,26 @@ Template.helper.events
     inpCon = $("#edit-rgx-content-#{self._id}")
 
     inpLife.hide()
-    $("#new-life-#{self._id}").fadeIn()
-    $(".save-btn").fadeIn()
     $("#edit-this-#{self._id}").hide()
+
+    $("#new-life-#{self._id}").fadeIn()
+    $("#save-this-#{self._id}").fadeIn()
     inpDate.prop('disabled', false)
     inpLvl.prop('disabled', false)
     inpCon.prop('disabled', false)
     
     
-  'click .save-edit' : (e)->
+  'click .save-edit-btn' : (e)->
     e.preventDefault()
-    $('.edit-setting-container').hide()
     self = this
-    # eDateIn = '#edit-rgx-date-' + self._id
-    # eLvlIn = '#edit-rgx-lvl-' + self._id
-    # eContentIn = '#edit-rgx-content-' + self._id
-    # edited_date = $(eDateIn).val().toString().trim()
-    # edited_lvl = $(eLvlIn).val().toString().trim()
-    # edited_content = $(eContentIn).val().toString().trim()
-    # console.log edited_date
-    # console.log edited_lvl
-    # console.log edited_content
+
+    # $('.edit-setting-container').hide()    
+    newLife = $("#new-life-#{self._id}").val()
+    newRgxDate = $("#edit-rgx-date-#{self._id}").val().toString().trim()
+    newRgxLvl = $("#edit-rgx-lvl-#{self._id}").val().toString().trim()
+    newRgxCon = $("#edit-rgx-content-#{self._id}").val().toString().trim()
+    
+    if newLife is "0"
+      Settings.update({'_id':self._id}, {$set: {regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
+    else
+      Settings.update({'_id':self._id}, {$set: {life:newLife, regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})

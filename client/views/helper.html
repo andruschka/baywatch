@@ -20,7 +20,7 @@
 
                     <label for="set-life">Life span</label> 
                     <input class="form-control" id="edit-life-{{_id}}" type="text" value="{{which_span life}}" disabled>
-                    <select id="new-life-{{_id}}" class="new-life form-control">
+                    <select id="new-life-{{_id}}" class="new-life-select form-control">
                       <option value="0">- leave the old one or choose new -</option>
                       <option value="-1">permanent</option>
                       <option value="1">1 day</option>
@@ -30,17 +30,17 @@
                     </select>
 
                     <label for="">RegExp for the DATE</label>
-                    <input class="form-control" id="edit-rgx-date-{{_id}}" type="text" placeholder="{{regex_date}}" disabled>
+                    <input class="form-control" id="edit-rgx-date-{{_id}}" type="text" value="{{regex_date}}" disabled>
 
                     <label for="">RegExp for the Log Level</label>
-                    <input class="form-control" id="edit-rgx-lvl-{{_id}}" type="text" placeholder="{{regex_lvl}}" disabled>
+                    <input class="form-control" id="edit-rgx-lvl-{{_id}}" type="text" value="{{regex_lvl}}" disabled>
 
                     <label for="">RegExp for the CONTENT</label>
-                    <input class="form-control" id="edit-rgx-content-{{_id}}" type="text" placeholder="{{regex_content}}" disabled>
+                    <input class="form-control" id="edit-rgx-content-{{_id}}" type="text" value="{{regex_content}}" disabled>
 
                     <p>
-                      <a id="edit-this-{{_id}}" class="edit-setting btn-link btn-sml"><i class="fa fa-edit"></i> edit</a>
-                      <a id="save-edit-{{_id}}" class="save-btn btn-link btn-sml">save</a> 
+                      <a id="edit-this-{{_id}}" class="edit-setting-btn btn-link btn-sml"><i class="fa fa-edit"></i> edit</a>
+                      <a id="save-this-{{_id}}" class="save-edit-btn btn-link btn-sml">save</a> 
                       &nbsp; &nbsp; &nbsp;
                       <a class="delete-setting-btn btn-link"> <i class="fa fa-trash-o"></i> delete</a>
                     </p>

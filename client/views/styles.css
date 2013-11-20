@@ -38,13 +38,8 @@ body {
 .edit-set-bar{
   font-size:15px;
 }
-.save-btn{
+.save-edit-btn{
   display:none;
-}
-#new-setting-panel{
-}
-#settings-panel{
-  display:block;
 }
 .rgx-setting:focus{
   border-color:#66AFE9;
@@ -53,7 +48,7 @@ body {
 }
 .show-setting-btn{
 }
-.new-life{
+.new-life-select{
   display:none;
 }
 .delete-setting-btn{
