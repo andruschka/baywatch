@@ -12,6 +12,7 @@ net.createServer (sock)->
 
   carrier.carry sock, (line)->
     Fiber ()->
+      line = line.toString().trim()
       if line and line?
         console.log "got a log line: " + line
         timestamp = Date.now()
@@ -21,14 +22,11 @@ net.createServer (sock)->
           sysId = rawSysId.trim().toString().slice(0,-1)
           setting = Settings.findOne({name: sysId})
           
-          console.log setting
-          
           # get regex patterns from setting doc
           if setting and setting? 
             
             # test & parse rgx date
             if setting.regex_date and setting.regex_date?
-              console.log setting.regex_date
               rgx_date = new RegExp(setting.regex_date.toString())
               if rgx_date.test(line) is true
                 lineDatestamp = line.match(rgx_date)[0].trim().toString()
@@ -36,14 +34,12 @@ net.createServer (sock)->
             
             # test & parse rgx content
             if setting and setting? and setting.regex_content and setting.regex_content?
-              console.log setting.regex_content
               rgx_content = new RegExp(setting.regex_content.toString())
               if rgx_content.test(line) is true
                 lineContent = line.match(rgx_content)[0].trim().toString()  
 
             # test & parse rgx log lvl
             if setting and setting? and setting.regex_lvl and setting.regex_lvl?
-              console.log setting.regex_lvl
               rgx_lvl = new RegExp(setting.regex_lvl.toString())
               if rgx_lvl.test(line) is true
                 lineLvl = line.match(rgx_lvl)[0].trim().toString()
