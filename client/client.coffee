@@ -1,7 +1,15 @@
 Logs = new Meteor.Collection 'logs'
 Settings = new Meteor.Collection 'settings'
 
-Meteor.subscribe 'all_logs'
+Session.set('home.loading', true)
+
+# Deps.autorun(function() {
+#   Session.set('package.ready', false);
+#   Meteor.subscribe('package', Session.get('currentPackage'), function() {
+#     Session.set('package.ready', true);
+
+Meteor.subscribe 'all_logs', ()->
+  Session.set('home.loading', false)
 Meteor.subscribe 'all_settings'
 Session.setDefault 'editSet', ''
 
@@ -12,6 +20,9 @@ Template.home.logs = ()->
 Template.home.getDate = (mills)->
   date = new Date(mills)
   return date.toISOString()
+
+Template.home.homeLoading = ()->
+  return Session.get('home.loading')
 
 Template.home.getLvlClass = (lvl)->
   if lvl.trim() is "INFO"
