@@ -20,4 +20,4 @@ Meteor.startup ()->
   Meteor.setInterval ()->
     now = Date.now()
     Logs.remove({"parsed.destroyAt": {$lt: now} })
-  , 1000
+  , 60000
