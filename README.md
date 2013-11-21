@@ -1,13 +1,9 @@
-# Baywatch (preview)
-
-	$npm install meteorite
-	$npm install meteor-npm
-	$cd /dir/to/baywatch/ && mrt
-
-This is a Tool for receiving Log- Messages via TCP (RsyslogD), parsing them with saved regexp. and saving to a MongoDB / monitoring them in your Web browser - IN REALTIME.   
+# Baywatch 
+This is a Tool for receiving log- messages from RsyslogD, parsing them with a saved regular- expression- setting and saving to a MongoDB / monitoring them in your browser - IN REALTIME.   
 Made with Meteor.js <3   
+(Demo app coming soon...)
       
-### Configuration for rsyslogd
+### Sample configuration for your rsyslogd
 	$ModLoad imfile	
 	# Watch this file:
 	$InputFileName /usr/home/abc/foo.log
@@ -21,5 +17,5 @@ Made with Meteor.js <3
 	*.* @@your.baywatch-server.com:6969
 
 ### ToDo 
-- search function
 - add a graph / chart (http://www.chartjs.org/)
+- write a documentation / how- to- use
