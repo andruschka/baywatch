@@ -12,48 +12,73 @@ net.createServer (sock)->
 
   carrier.carry sock, (line)->
     Fiber ()->
-      console.log 'got one line: ' + line
-      
-      timestamp = Date.now()
+      if line and line?
+        console.log "got a log line: " + line
+        timestamp = Date.now()
+        # get systemID from line and find a setting
+        if rgxSystem.test(line) is true 
+          rawSysId = line.match(rgxSystem)[0]
+          sysId = rawSysId.trim().toString().slice(0,-1)
+          setting = Settings.findOne({name: sysId})
+          
+          console.log setting
+          
+          # get regex patterns from setting doc
+          if setting and setting? 
+            
+            # test & parse rgx date
+            if setting.regex_date and setting.regex_date?
+              console.log setting.regex_date
+              rgx_date = new RegExp(setting.regex_date.toString())
+              if rgx_date.test(line) is true
+                lineDatestamp = line.match(rgx_date)[0].trim().toString()
+                lineMillis = new Date(lineDatestamp).getTime()
+            
+            # test & parse rgx content
+            if setting and setting? and setting.regex_content and setting.regex_content?
+              console.log setting.regex_content
+              rgx_content = new RegExp(setting.regex_content.toString())
+              if rgx_content.test(line) is true
+                lineContent = line.match(rgx_content)[0].trim().toString()  
 
-      # get systemID from line and find in Settings
-      if rgxSystem.test(line) is true 
-        rawSysId = line.match(rgxSystem)[0]
-        sysId = rawSysId.trim().toString().slice(0,-1)
-        setting = Settings.findOne({name: sysId})
-
-        # parse line with regex config from Settings
-        
-        # check if setting exists for this system and if date & content & log lvl  - regex config exists 
-        if setting and setting? and setting.regex_date and setting.regex_date?
-          rgx_date = new RegExp(setting.regex_date.toString())
-        if setting and setting? and setting.regex_content and setting.regex_content?
-          rgx_content = new RegExp(setting.regex_content.toString())
-        if setting and setting? and setting.regex_lvl and setting.regex_lvl?
-          rgx_lvl = new RegExp(setting.regex_lvl.toString())
-        
-        console.log setting
-        # # test rgx date
-        # if rgx_date.test(line) is true
-        #   lineDatestamp = line.match(rgx_date)[0].trim().toString()
-        #   lineMillis = new Date(lineDatestamp).getTime()
-        # # test rgx content
-        # if rgx_content.test(line) is true
-        #   lineContent = line.match(rgx_content)[0].trim().toString()  
-        # # test rgx log lvl
-        # if rgx_lvl.test(line) is true
-        #   lineLvl = line.match(rgx_lvl)[0].trim().toString()
-        # 
-        # console.log sysId + " // " + lineMillis + " // " + lineLvl + " // " + lineContent
-        # Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
+            # test & parse rgx log lvl
+            if setting and setting? and setting.regex_lvl and setting.regex_lvl?
+              console.log setting.regex_lvl
+              rgx_lvl = new RegExp(setting.regex_lvl.toString())
+              if rgx_lvl.test(line) is true
+                lineLvl = line.match(rgx_lvl)[0].trim().toString()
+          
+            # all patterns got parsed ?
+            if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent? and lineLvl and lineLvl?
+              console.log "all parsed"
+              Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent, 'lvl':lineLvl}})
+            else
+              if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent?
+                console.log "missing smth"
+                Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
+              else
+                if sysId and sysId? and lineContent and lineContent?
+                  console.log "missing smth"
+                  Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'system':sysId, 'content':lineContent}})
+                else
+                  if sysId and sysId?
+                    console.log "missing smth"
+                    Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'system':sysId}})
+                  else
+                    console.log "missing smth"
+                    Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
+          else
+            # no setting found for this system
+            Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
+        else
+          # no system id found in line ...
+          Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
       else
-        console.log "there is no regex setting... but inserting in DB" 
-        Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
-
+        console.log "empty line..."
     .run()
 
   sock.on 'close', (data)->
     console.log 'CLOSED DOWN'
 
 .listen(PORT, HOST)
-console.log 'TCP Server listening on ' + HOST + ':' + PORT
+console.log 'TCP Server running, listening on ' + HOST + ':' + PORT

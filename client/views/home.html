@@ -22,46 +22,47 @@
       </thead>
       <tbody>
         {{#each logs}}
-        <tr>
+          <tr>
 
-          <!-- system -->
-          <td class="systems">
-            {{#if parsed}}
-              {{parsed.system}}
-            {{else}}
-              NA
-            {{/if}}
-          </td>
+            <!-- system -->
+            <td class="systems">
+              {{#if parsed.system}}
+                {{parsed.system}}
+              {{else}}
+                NA
+              {{/if}}
+            </td>
 
-          <!-- timestamp -->
-          <td class="times">
-            {{#if parsed}}
-              {{getDate parsed.lineMillis}}
-            {{else}}
-              {{getDate incomeMillis}}
-            {{/if}}
-          </td>
+            <!-- timestamp -->
+            <td class="times">
+              {{#if parsed.lineMillis}}
+                {{getDate parsed.lineMillis}}
+              {{else}}
+                {{getDate incomeMillis}}
+              {{/if}}
+            </td>
 
-          <!-- flag -->
-          <td class="flags"><center>
-            {{#if parsed.flag}}
-              <span class="{{getFlagClass parsed.flag}}">{{parsed.flag}}</span>
-            {{else}}
-              <span class="flagNA">NA</span>
-            {{/if}}
-          </center></td>
+            <!-- lvl -->
+            <td class="flags"><center>
+              {{#if parsed.lvl}}
+                <span class="{{getFlagClass parsed.lvl}}">{{parsed.lvl}}</span>
+              {{else}}
+                <span class="flagNA">NA</span>
+              {{/if}}
+            </center></td>
 
-          <!-- message -->
-          <td class="lines">
-            {{#if parsed}}
-              <span class="lineParsed">{{parsed.content}}</span>
-            {{else}}
-              <span class="lineNotParsed">{{rawLine}}</span>
-            {{/if}}
-          </td>
+            <!-- message -->
+            <td class="lines">
+              {{#if parsed.content}}
+                <span class="lineParsed">{{parsed.content}}</span>
+              {{else}}
+                <span class="lineNotParsed">{{rawLine}}</span>
+              {{/if}}
+            </td>
 
-        </tr>
+          </tr>
         {{/each}}
+
       </tbody>
     </table>
 

@@ -50,6 +50,11 @@ Template.home.events
   'click .line' : (e)->
     e.preventDefault()
     console.log this
+  'click .systems' : (e)->
+    sys = $(e.currentTarget).text().trim()
+    sys = sys.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+    Session.set('search_keywords', sys)
+    $('#search').val(sys)
 
 Template.navbar.events
   'keyup [name=search]': (e,context)->
@@ -128,21 +133,19 @@ Template.helper.events
     e.preventDefault()
     self = this
     
-    $("#new-life-#{self._id} option[value=#{self.life}]").attr("selected", "selected")
-    
     inpLife = $("#edit-life-#{self._id}")
     inpDate = $("#edit-rgx-date-#{self._id}")
     inpLvl = $("#edit-rgx-lvl-#{self._id}")
     inpCon = $("#edit-rgx-content-#{self._id}")
-
+    
     inpLife.hide()
-    $("#edit-this-#{self._id}").hide()
-
+    $("#new-life-#{self._id} option[value=#{self.life}]").attr("selected", "selected")
     $("#new-life-#{self._id}").fadeIn()
-    $("#save-this-#{self._id}").fadeIn()
     inpDate.prop('disabled', false)
     inpLvl.prop('disabled', false)
     inpCon.prop('disabled', false)
+    $("#save-this-#{self._id}").show()
+    $("#edit-this-#{self._id}").hide()
     
     
   'click .save-edit-btn' : (e)->
@@ -154,4 +157,21 @@ Template.helper.events
     newRgxLvl = $("#edit-rgx-lvl-#{self._id}").val().toString().trim()
     newRgxCon = $("#edit-rgx-content-#{self._id}").val().toString().trim()
     
-    Settings.update({'_id':self._id}, {$set: {life:newLife, regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
+    if self.life is newLife and self.regex_date is newRgxDate and self.regex_lvl is newRgxLvl and self.regex_content is newRgxCon
+      console.log "no new stuff here"
+      # panel back to default
+      inpLife = $("#edit-life-#{self._id}")
+      inpDate = $("#edit-rgx-date-#{self._id}")
+      inpLvl = $("#edit-rgx-lvl-#{self._id}")
+      inpCon = $("#edit-rgx-content-#{self._id}")
+
+      inpLife.show()
+      $("#new-life-#{self._id}").hide()
+      inpDate.prop('disabled', true)
+      inpLvl.prop('disabled', true)
+      inpCon.prop('disabled', true)
+      $("#save-this-#{self._id}").hide()
+      $("#edit-this-#{self._id}").show()
+      
+    else
+      Settings.update({'_id':self._id}, {$set: {life:newLife, regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
