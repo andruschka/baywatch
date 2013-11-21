@@ -13,18 +13,26 @@ Template.home.getDate = (mills)->
   date = new Date(mills)
   return date.toISOString()
 
-Template.home.getFlagClass = (flag)->
-  flag = flag.toString().trim()
-  if flag is "INFO" or "info"
-    result = "flagInfo"
+Template.home.getLvlClass = (lvl)->
+  if lvl.trim() is "INFO"
+    result = "lvlInfo"
   else
-    if flag is "WARNING" or "warning"
-      result = "flagWarning"
+    if lvl.trim() is "WARNING"
+      result = "lvlWarning"
     else
-      if flas is "ERROR" or "error"
-        result = "flagError"
+      if lvl.trim() is "ERROR"
+        result = "lvlError"
       else
-        result = "flagNA"
+        if lvl.trim() is 'info'
+          result = "lvlInfo"
+        else
+          if lvl.trim() is 'warning'
+            result = 'lvlWarning'
+          else
+            if lvl.trim() is 'error'
+              result = 'lvlError'
+            else
+              result = "lvlNA"
   return result
 
 Template.helper.settings = ()->
