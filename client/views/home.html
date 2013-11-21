@@ -1,10 +1,10 @@
 <template name="home">
   <div class="container home">        
     {{#if homeLoading}}
+      <br><br><br><br>
+      <center><h2 class="loading">loading <i class="fa fa-refresh fa-spin"></i></h2></center>
       <br><br>
-      <h3>loading...</h3>
-      <br><br>
-    {{/if}}
+    {{else}}
 
     <!-- LOG STREAM TABLE -->
     <table class="table table-responsive table-striped table-condensed" id="stream">
@@ -65,6 +65,6 @@
 
       </tbody>
     </table>
-
+    {{/if}}
   </div>
 </template>
