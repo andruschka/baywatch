@@ -27,7 +27,7 @@
             <!-- system -->
             <td class="systems">
               {{#if parsed.system}}
-                {{parsed.system}}
+                <span class="system">{{parsed.system}}</span>
               {{else}}
                 NA
               {{/if}}
@@ -52,7 +52,7 @@
             </center></td>
 
             <!-- message -->
-            <td class="lines">
+            <td id="line-{{_id}}" class="nowrap-line line">
               {{#if parsed.content}}
                 <span class="lineParsed">{{parsed.content}}</span>
               {{else}}

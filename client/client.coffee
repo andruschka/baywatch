@@ -32,15 +32,15 @@ Template.helper.settings = ()->
   
 Template.helper.which_span = (life)->
   if life is "1"
-    span = "one day"
+    span = "1 day"
   else
     if life is "7"
-      span = "one week"
+      span = "1 week"
     else
       if life is "31"
-        span = "one month"
+        span = "1 month"
       else if life is "365"
-        span = "one year"
+        span = "1 year"
       else
         span = "permanent"
   return span
@@ -49,8 +49,9 @@ Template.helper.which_span = (life)->
 Template.home.events
   'click .line' : (e)->
     e.preventDefault()
-    console.log this
-  'click .systems' : (e)->
+    $("#line-#{this._id}").toggleClass('nowrap-line')
+
+  'click .system' : (e)->
     sys = $(e.currentTarget).text().trim()
     sys = sys.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
     Session.set('search_keywords', sys)
@@ -59,13 +60,10 @@ Template.home.events
 Template.navbar.events
   'keyup [name=search]': (e,context)->
     Session.set('search_keywords', e.currentTarget.value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"))
+
   'click #showSettings' : (e)->
     e.preventDefault()
     $('#settings-panel').fadeIn()
-    $('#darken').fadeIn()
-  'click #addSetting' : (e)->
-    e.preventDefault()
-    $('#new-setting-panel').fadeIn()
     $('#darken').fadeIn()
 
 Template.helper.events
@@ -74,7 +72,11 @@ Template.helper.events
     $('.modal').fadeOut()
     $('#darken').fadeOut()
     $('.edit-setting-container').hide()
-    
+  
+  'click #addSetting' : (e)->
+    e.preventDefault()
+    $('#settings-panel').fadeOut()
+    $('#new-setting-panel').fadeIn()
   
   'click #addNewSetting' : (e)->
     e.preventDefault()
@@ -120,8 +122,11 @@ Template.helper.events
     e.preventDefault()
     self = this
     editItem = $(".edit-#{this._id}")
-    $('.edit-setting-container').hide()
-    editItem.fadeIn()
+    if editItem.is(':visible')
+      editItem.fadeOut()
+    else
+      $('.edit-setting-container').hide()
+      editItem.fadeIn()
 
   'click .delete-setting-btn' : (e)->
     e.preventDefault()
@@ -140,13 +145,14 @@ Template.helper.events
     
     inpLife.hide()
     $("#new-life-#{self._id} option[value=#{self.life}]").attr("selected", "selected")
-    $("#new-life-#{self._id}").fadeIn()
+    $("#new-life-#{self._id}").show()
     inpDate.prop('disabled', false)
     inpLvl.prop('disabled', false)
     inpCon.prop('disabled', false)
     $("#save-this-#{self._id}").show()
     $("#edit-this-#{self._id}").hide()
-    
+    $("#cancel-this-#{self._id}").show()
+    $("#delete-this-#{self._id}").hide()
     
   'click .save-edit-btn' : (e)->
     e.preventDefault()
@@ -159,6 +165,7 @@ Template.helper.events
     
     if self.life is newLife and self.regex_date is newRgxDate and self.regex_lvl is newRgxLvl and self.regex_content is newRgxCon
       console.log "no new stuff here"
+
       # panel back to default
       inpLife = $("#edit-life-#{self._id}")
       inpDate = $("#edit-rgx-date-#{self._id}")
@@ -172,6 +179,32 @@ Template.helper.events
       inpCon.prop('disabled', true)
       $("#save-this-#{self._id}").hide()
       $("#edit-this-#{self._id}").show()
+      $("#cancel-this-#{self._id}").hide()
+      $("#delete-this-#{self._id}").show()
       
     else
       Settings.update({'_id':self._id}, {$set: {life:newLife, regex_date:newRgxDate, regex_lvl:newRgxLvl, regex_content:newRgxCon}})
+      
+  'click .cancel-edit-btn' : (e)->
+    e.preventDefault()
+    self = this
+    
+    # panel back to default
+    inpLife = $("#edit-life-#{self._id}")
+    inpDate = $("#edit-rgx-date-#{self._id}")
+    inpLvl = $("#edit-rgx-lvl-#{self._id}")
+    inpCon = $("#edit-rgx-content-#{self._id}")
+
+    inpLife.show()
+    $("#new-life-#{self._id}").hide()
+    inpDate.prop('disabled', true)
+    inpLvl.prop('disabled', true)
+    inpCon.prop('disabled', true)
+    $("#save-this-#{self._id}").hide()
+    $("#edit-this-#{self._id}").show()
+    $("#cancel-this-#{self._id}").hide()
+    $("#delete-this-#{self._id}").show()
+    
+    inpDate.val("#{self.regex_date}")
+    inpLvl.val("#{self.regex_lvl}")
+    inpCon.val("#{self.regex_content}")

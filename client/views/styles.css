@@ -54,10 +54,17 @@ body {
 .delete-setting-btn{
   color:rgba(201,50,24,1)!important;
 }
+.cancel-edit-btn{
+  color:rgba(201,50,24,1)!important;
+  display:none;
+}
 .edit-setting-container{
   display:none;
 }
-
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #EEEEEE;
+    cursor: default;
+}
 
 /* ######## STREAM TABLE STYLES ######## */
 #stream{
@@ -72,11 +79,16 @@ th {
   color:#f4fff6;
   text-shadow: black 0.1em 0.1em 0.2em;
 }
-.lines{
+.system{
+  cursor:pointer;
+}
+.line{
   font-size:14px;
-  white-space:nowrap;
-  word-break:inherit;
   overflow:hidden;
+  cursor:pointer;
+}
+.nowrap-line{
+  white-space:nowrap;
 }
 .lineParsed{
   color:#f4fff6;
@@ -85,6 +97,9 @@ th {
 .lineNotParsed{
   color:#c6c6c6;
 /*  color:#22a43b;*/
+}
+.wrap-line{
+  white-space:normal;
 }
 .flagNA{
   color:#75bbff;

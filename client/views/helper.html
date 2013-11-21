@@ -8,11 +8,14 @@
             <h4 class="modal-title">Settings</h4>
           </div>
           <div class="modal-body">
+            <button id="addSetting" class="btn btn-block btn-success"><i class="fa fa-plus"></i> new setting</button>
+            <hr>
+            <center><h4>your settings:</h4></center>
               {{#each settings}}
                 <h3>
                   {{name}}
                   <span class="edit-set-bar">
-                    <a class="show-setting-btn btn-link"> <i class="fa fa-chevron-down"></i> </a>
+                    <a class="show-setting-btn btn-link pull-right"> <i class="fa fa-chevron-down"></i> </a>
                   </span>
                 </h3>
                 <div class="edit-{{_id}} edit-setting-container">
@@ -41,7 +44,8 @@
                       <a id="edit-this-{{_id}}" class="edit-setting-btn btn-link btn-sml"><i class="fa fa-edit"></i> edit</a>
                       <a id="save-this-{{_id}}" class="save-edit-btn btn-link btn-sml"><i class="fa fa-check"></i> save</a> 
                       &nbsp; &nbsp; &nbsp;
-                      <a class="delete-setting-btn btn-link"> <i class="fa fa-trash-o"></i> delete</a>
+                      <a id="delete-this-{{_id}}" class="delete-setting-btn btn-link"> <i class="fa fa-trash-o"></i> delete</a>
+                      <a id="cancel-this-{{_id}}" class="cancel-edit-btn btn-link"> <i class="fa fa-times"></i> cancel</a>
                     </p>
                   </div>
                 </div>

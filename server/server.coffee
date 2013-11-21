@@ -14,3 +14,10 @@ Settings.allow
     return true
   remove: ()->
     return true
+
+# scheduled job for deleting logs
+Meteor.startup ()->
+  Meteor.setInterval ()->
+    now = Date.now()
+    Logs.remove({"parsed.destroyAt": {$lt: now} })
+  , 1000

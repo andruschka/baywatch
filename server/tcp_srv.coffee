@@ -47,25 +47,36 @@ net.createServer (sock)->
               rgx_lvl = new RegExp(setting.regex_lvl.toString())
               if rgx_lvl.test(line) is true
                 lineLvl = line.match(rgx_lvl)[0].trim().toString()
-          
-            # all patterns got parsed ?
-            if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent? and lineLvl and lineLvl?
-              console.log "all parsed"
-              Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent, 'lvl':lineLvl}})
-            else
-              if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent?
-                console.log "missing smth"
-                Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent}})
+                
+            # what is the lifetime of this post ?
+            if setting and setting? and setting.life and setting.life?
+              if setting.life is "1"
+                destroyAt = timestamp + 86400000
               else
-                if sysId and sysId? and lineContent and lineContent?
-                  console.log "missing smth"
-                  Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'system':sysId, 'content':lineContent}})
+                if setting.life is "7"
+                  destroyAt = timestamp + 604800000
                 else
-                  if sysId and sysId?
-                    console.log "missing smth"
-                    Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'system':sysId}})
+                  if setting.life is "31"
+                    destroyAt = timestamp + 2678400000
                   else
-                    console.log "missing smth"
+                    if setting.life is "365"
+                      destroyAt = timestamp + 31536000000
+                    else
+                      destroyAt = timestamp + 31536000000000
+            
+            # all patterns got parsed ?
+            if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent? and lineLvl and lineLvl? and destroyAt and destroyAt?
+              Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent, 'lvl':lineLvl, 'destroyAt':destroyAt}})
+            else
+              if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent? and destroyAt and destroyAt?
+                Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent, 'destroyAt':destroyAt}})
+              else
+                if sysId and sysId? and lineContent and lineContent? and destroyAt and destroyAt?
+                  Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'system':sysId, 'content':lineContent, 'destroyAt':destroyAt}})
+                else
+                  if sysId and sysId? and destroyAt and destroyAt?
+                    Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'system':sysId, 'destroyAt':destroyAt}})
+                  else
                     Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
           else
             # no setting found for this system
