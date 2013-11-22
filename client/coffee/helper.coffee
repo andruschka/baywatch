@@ -1,4 +1,9 @@
 # HELPER FUNCTIONS
+@lvlClassesInfo = Meteor.settings.public.lvlClassesInfo
+@lvlClassesWarning = Meteor.settings.public.lvlClassesWarning
+@lvlClassesError = Meteor.settings.public.lvlClassesError
+@dateSetting = Meteor.settings.public.timeStampFormat
+
 Template.home.logs = ()->
   searchString = Session.get('search_keywords')
   searchArr = searchString.split(',') if searchString?  
@@ -15,7 +20,14 @@ Template.home.logs = ()->
 
 Template.home.getDate = (mills)->
   date = new Date(mills)
-  return date.toISOString()
+  if dateSetting.ISOString is true
+    return date.toISOString()
+  else
+    if dateSetting.DateString is true
+      return date.toString()
+    else
+      if dateSetting.LocaleString is true
+        return date.toLocaleString()
 
 Template.home.homeLoading = ()->
   return Session.get('home.loading')

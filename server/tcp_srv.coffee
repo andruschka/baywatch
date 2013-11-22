@@ -2,8 +2,8 @@ Fiber = Meteor.require 'fibers'
 net = Meteor.require 'net'
 carrier = Meteor.require 'carrier'
 
-HOST = '127.0.0.1'
-PORT = '6969'
+HOST = Meteor.settings.HOST
+PORT = Meteor.settings.PORT
 
 rgxSystem = new RegExp(/\s[A-Za-z]*:\s/)
 

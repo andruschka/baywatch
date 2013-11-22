@@ -1,0 +1,16 @@
+{
+  "public": 
+  {
+    "lvlClassesInfo": ["INFO","info"],
+    "lvlClassesWarning": ["WARNING","warning"],
+    "lvlClassesError": ["ERROR","error"],
+    "timeStampFormat":
+    {
+      "ISOString":false,
+      "DateString":false,
+      "LocaleString":true
+    }
+  },
+  "HOST":"127.0.0.1",
+  "PORT":"6969"
+}
