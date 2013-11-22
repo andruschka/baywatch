@@ -20,6 +20,7 @@ body {
   cursor:pointer;
 }
 #search{
+  min-width:200px;
   background-color:#D9D9D9;
   border-radius:15px;
   border:;
@@ -37,6 +38,9 @@ body {
 }
 .edit-set-bar{
   font-size:15px;
+}
+.lvl{
+  cursor:pointer;
 }
 .save-edit-btn{
   display:none;
