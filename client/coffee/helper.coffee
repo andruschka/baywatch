@@ -1,12 +1,23 @@
 # HELPER FUNCTIONS
 Template.home.logs = ()->
-  keywords = new RegExp(Session.get('search_keywords'), 'i')
-  return Logs.find({rawLine:keywords},{sort: {incomeMillis: -1}})
+  searchString = Session.get('search_keywords')  
+  searchArr = searchString.split(',') if searchString?  
+  selector = {}
+  if searchArr? and _.compact(searchArr).length > 0
+    keywordArr = []  
+    for word in searchArr
+      word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+      patWord = new RegExp(word, 'i')
+      keywordArr.push {rawLine: patWord}    
+    selector = { $and: keywordArr }
+  return Logs.find( selector ,{sort: {incomeMillis: -1}})
 Template.home.getDate = (mills)->
   date = new Date(mills)
   return date.toISOString()
+
 Template.home.homeLoading = ()->
   return Session.get('home.loading')
+
 Template.home.getLvlClass = (lvl)->
   if lvl.trim() is "INFO"
     result = "lvlInfo"
@@ -28,8 +39,10 @@ Template.home.getLvlClass = (lvl)->
             else
               result = "lvlNA"
   return result
+
 Template.helper.settings = ()->
   return Settings.find()
+
 Template.helper.which_span = (life)->
   if life is "1"
     span = "1 day"

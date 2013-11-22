@@ -11,14 +11,15 @@ Template.home.events
     $('#search').val(sys)
 
   'click .lvl' : (e)->
-    sys = $(e.currentTarget).text().trim()
-    sys = sys.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-    Session.set('search_keywords', sys)
-    $('#search').val(sys)
+    lvl = $(e.currentTarget).text().trim()
+    lvl = lvl.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+    Session.set('search_keywords', lvl)
+    $('#search').val(lvl)
     
 Template.navbar.events
   'keyup [name=search]': (e,context)->
-    Session.set('search_keywords', e.currentTarget.value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"))
+    searchString = e.currentTarget.value.toString().trim()
+    Session.set('search_keywords', searchString)
 
   'click #showSettings' : (e)->
     e.preventDefault()
