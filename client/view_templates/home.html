@@ -5,66 +5,65 @@
       <center><h2 class="loading">loading <i class="fa fa-refresh fa-spin"></i></h2></center>
       <br><br>
     {{else}}
-
-    <!-- LOG STREAM TABLE -->
-    <table class="table table-responsive table-striped table-condensed" id="stream">
-      <col width="10%"/>
-      <col width="20%"/>
-      <col width="10%" />
-      <col width="60%"/>
-      <thead>
-        <tr>
-          <th class="">Sys.</th>
-          <th class="">Timestamp</th>
-          <th class=""><center>LVL</center></th>
-          <th class="">Log Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each logs}}
+      <!-- LOG STREAM TABLE -->
+      <table class="table table-responsive table-striped table-condensed" id="stream">
+        <col width="10%"/>
+        <col width="20%"/>
+        <col width="10%" />
+        <col width="60%"/>
+        <thead>
           <tr>
-
-            <!-- system -->
-            <td class="systems">
-              {{#if parsed.system}}
-                <span class="system">{{parsed.system}}</span>
-              {{else}}
-                NA
-              {{/if}}
-            </td>
-
-            <!-- timestamp -->
-            <td class="times">
-              {{#if parsed.lineMillis}}
-                {{getDate parsed.lineMillis}}
-              {{else}}
-                {{getDate incomeMillis}}
-              {{/if}}
-            </td>
-
-            <!-- lvl -->
-            <td class="lvls"><center>
-              {{#if parsed.lvl}}
-                <span class="{{getLvlClass parsed.lvl}} lvl">{{parsed.lvl}}</span>
-              {{else}}
-                <span class="lvlNA">NA</span>
-              {{/if}}
-            </center></td>
-
-            <!-- message -->
-            <td id="line-{{_id}}" class="nowrap-line line">
-              {{#if parsed.content}}
-                <span class="lineParsed">{{parsed.content}}</span>
-              {{else}}
-                <span class="lineNotParsed">{{rawLine}}</span>
-              {{/if}}
-            </td>
-
+            <th class="">Sys.</th>
+            <th class="">Timestamp</th>
+            <th class=""><center>LVL</center></th>
+            <th class="">Log Message</th>
           </tr>
-        {{/each}}
+        </thead>
+        <tbody>
+          {{#each logs}}
+            <tr>
 
-      </tbody>
-    </table>
+              <!-- system -->
+              <td class="systems">
+                {{#if parsed.system}}
+                  <span class="system">{{parsed.system}}</span>
+                {{else}}
+                  NA
+                {{/if}}
+              </td>
+
+              <!-- timestamp -->
+              <td class="times">
+                {{#if parsed.lineMillis}}
+                  {{getDate parsed.lineMillis}}
+                {{else}}
+                  {{getDate incomeMillis}}
+                {{/if}}
+              </td>
+
+              <!-- lvl -->
+              <td class="lvls"><center>
+                {{#if parsed.lvl}}
+                  <span class="{{getLvlClass parsed.lvl}} lvl">{{parsed.lvl}}</span>
+                {{else}}
+                  <span class="lvlNA">NA</span>
+                {{/if}}
+              </center></td>
+
+              <!-- message -->
+              <td id="line-{{_id}}" class="nowrap-line line">
+                {{#if parsed.content}}
+                  <span class="lineParsed">{{parsed.content}}</span>
+                {{else}}
+                  <span class="lineNotParsed">{{rawLine}}</span>
+                {{/if}}
+              </td>
+
+            </tr>
+          {{/each}}
+
+        </tbody>
+      </table>
     {{/if}}
   </div>
 </template>

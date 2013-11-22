@@ -69,7 +69,10 @@ body {
     background-color: #EEEEEE;
     cursor: default;
 }
-
+.toggleDesc{
+  color:#fff;
+  font-size:11px;
+}
 /* ######## STREAM TABLE STYLES ######## */
 #stream{
 /*  color:#17D43D;*/

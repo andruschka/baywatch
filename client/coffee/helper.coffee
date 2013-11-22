@@ -1,8 +1,9 @@
 # HELPER FUNCTIONS
 Template.home.logs = ()->
-  searchString = Session.get('search_keywords')  
+  searchString = Session.get('search_keywords')
   searchArr = searchString.split(',') if searchString?  
   selector = {}
+  filter = {incomeMillis: -1}
   if searchArr? and _.compact(searchArr).length > 0
     keywordArr = []  
     for word in searchArr
@@ -10,7 +11,8 @@ Template.home.logs = ()->
       patWord = new RegExp(word, 'i')
       keywordArr.push {rawLine: patWord}    
     selector = { $and: keywordArr }
-  return Logs.find( selector ,{sort: {incomeMillis: -1}})
+  return Logs.find( selector ,{sort: filter})
+
 Template.home.getDate = (mills)->
   date = new Date(mills)
   return date.toISOString()
