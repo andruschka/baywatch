@@ -21,25 +21,20 @@ Template.home.homeLoading = ()->
   return Session.get('home.loading')
 
 Template.home.getLvlClass = (lvl)->
-  if lvl.trim() is "INFO"
+  lvl = lvl.trim()
+  isInfo = _.indexOf(lvlClassesInfo, lvl)
+  isWarning = _.indexOf(lvlClassesWarning, lvl)
+  isError = _.indexOf(lvlClassesError, lvl)
+  if isInfo isnt -1
     result = "lvlInfo"
   else
-    if lvl.trim() is "WARNING"
+    if isWarning isnt -1
       result = "lvlWarning"
     else
-      if lvl.trim() is "ERROR"
+      if isError isnt -1
         result = "lvlError"
       else
-        if lvl.trim() is 'info'
-          result = "lvlInfo"
-        else
-          if lvl.trim() is 'warning'
-            result = 'lvlWarning'
-          else
-            if lvl.trim() is 'error'
-              result = 'lvlError'
-            else
-              result = "lvlNA"
+        result = "lvlNA"
   return result
 
 Template.helper.settings = ()->
