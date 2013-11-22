@@ -1,4 +1,4 @@
-# mongo debug helper
+# TEMPLATE EVENTS
 Template.home.events
   'click .line' : (e)->
     e.preventDefault()

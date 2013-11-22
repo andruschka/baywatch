@@ -1,24 +1,12 @@
-@Logs = new Meteor.Collection 'logs'
-@Settings = new Meteor.Collection 'settings'
-
-Session.set('home.loading', true)
-
-Meteor.subscribe 'all_logs', ()->
-  Session.set('home.loading', false)
-Meteor.subscribe 'all_settings'
-Session.setDefault 'editSet', ''
-
+# HELPER FUNCTIONS
 Template.home.logs = ()->
   keywords = new RegExp(Session.get('search_keywords'), 'i')
   return Logs.find({rawLine:keywords},{sort: {incomeMillis: -1}})
-
 Template.home.getDate = (mills)->
   date = new Date(mills)
   return date.toISOString()
-
 Template.home.homeLoading = ()->
   return Session.get('home.loading')
-
 Template.home.getLvlClass = (lvl)->
   if lvl.trim() is "INFO"
     result = "lvlInfo"
@@ -40,10 +28,8 @@ Template.home.getLvlClass = (lvl)->
             else
               result = "lvlNA"
   return result
-
 Template.helper.settings = ()->
   return Settings.find()
-  
 Template.helper.which_span = (life)->
   if life is "1"
     span = "1 day"
