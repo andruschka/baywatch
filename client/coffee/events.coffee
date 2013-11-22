@@ -1,21 +1,31 @@
 # TEMPLATE EVENTS
-Template.home.events
+Template.home.events  
   'click .line' : (e)->
     e.preventDefault()
     $("#line-#{this._id}").toggleClass('nowrap-line')
 
   'click .system' : (e)->
+    sTxt = $('#search').val()
     sys = $(e.currentTarget).text().trim()
-    sys = sys.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-    Session.set('search_keywords', sys)
-    $('#search').val(sys)
+    if sTxt and sTxt?
+      newTxt = sTxt + ", " + sys
+      Session.set('search_keywords', newTxt)
+      $('#search').val(newTxt)
+    else
+      Session.set('search_keywords', sys)
+      $('#search').val(sys)
 
   'click .lvl' : (e)->
+    sTxt = $('#search').val()
     lvl = $(e.currentTarget).text().trim()
-    lvl = lvl.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-    Session.set('search_keywords', lvl)
-    $('#search').val(lvl)
-    
+    if sTxt and sTxt?
+      newTxt = sTxt + ", " + lvl
+      Session.set('search_keywords', newTxt)
+      $('#search').val(newTxt)
+    else
+      Session.set('search_keywords', lvl)
+      $('#search').val(lvl)
+
 Template.navbar.events
   'keyup [name=search]': (e,context)->
     searchString = e.currentTarget.value.toString().trim()
