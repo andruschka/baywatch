@@ -3,8 +3,9 @@
 This is a Tool for receiving log- messages from RsyslogD, parsing them with a saved regular- expression- setting and saving to a MongoDB / monitoring them in your browser - IN REALTIME.   
 Made with Meteor.js <3   
 (You need npm + meteorite on your machine)
+### Start the app
       
-    $mrt --settings settings.json
+    $sh startup.sh
    
 ### Sample configuration for your rsyslogd
 	$ModLoad imfile	
@@ -18,7 +19,3 @@ Made with Meteor.js <3
 	
 	# Send everything to baywatch on port 6969
 	*.* @@your.baywatch-server.com:6969
-
-### ToDo 
-- add a graph / chart (http://www.chartjs.org/)
-- write a documentation / how- to- use
