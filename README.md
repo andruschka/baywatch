@@ -1,5 +1,5 @@
 # Baywatch 
-![screenshot](http://a-fritz.com/assets/img/portfolio/folio01.jpg)   
+![screenshot](http://a-fritz.com/assets/img/portfolio/folio_new.png)   
 This is a Tool for receiving log- messages from RsyslogD, parsing them with a saved regular- expression- setting and saving to a MongoDB / monitoring them in your browser - IN REALTIME.   
 Made with Meteor.js <3   
 (You need npm + meteorite on your machine)

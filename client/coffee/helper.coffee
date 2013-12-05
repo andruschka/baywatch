@@ -66,23 +66,3 @@ Template.helper.which_span = (life)->
       else
         span = "permanent"
   return span
-  
-Template.chart.rendered = ()->
-  # Log CHART
-  ctx = $('#logChart').get(0).getContext('2d')
-  data = {
-  	labels : ["last 7h", "last 6h", "last 5h", "last 3h", "last 2h", "last 1h", "just now"],
-  	datasets : [
-  		{
-  			fillColor : "rgba(151,187,205,0.5)",
-  			strokeColor : "rgba(151,187,205,1)",
-  			data : [70,50,100,20,14,5,1]
-  		}
-  	]
-  }
-  new Chart(ctx).Line(data)
-
-  # Sys CHART
-  ctx = $('#sysChart').get(0).getContext('2d')
-  data = [{value: 30,	color:"#F7464A"},{value : 50,color : "#E2EAE9"},{value : 100,	color : "#D4CCC5"},{value : 40,	color : "#949FB1"},{value : 120,	color : "#4D5360"}]
-  new Chart(ctx).Pie(data)
