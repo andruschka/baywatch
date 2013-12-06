@@ -1,8 +1,11 @@
 # HELPER FUNCTIONS
-@lvlClassesInfo = Meteor.settings.public.lvlClassesInfo
-@lvlClassesWarning = Meteor.settings.public.lvlClassesWarning
-@lvlClassesError = Meteor.settings.public.lvlClassesError
-@dateSetting = Meteor.settings.public.timeStampFormat
+if Meteor.settings and Meteor.settings? and Meteor.settings.public and Meteor.settings.public?
+  @lvlClassesInfo = Meteor.settings.public.lvlClassesInfo
+  @lvlClassesWarning = Meteor.settings.public.lvlClassesWarning
+  @lvlClassesError = Meteor.settings.public.lvlClassesError
+  @dateSetting = Meteor.settings.public.timeStampFormat
+else
+  alert "PLEASE START BAYWATCH WITH THE STARTUP SCRIPT"
 
 Template.home.logs = ()->
   searchString = Session.get('search_keywords')
