@@ -21,3 +21,5 @@ Meteor.startup ()->
     now = Date.now()
     Logs.remove({"parsed.destroyAt": {$lt: now} })
   , 60000
+  unless Settings.findOne({name: "rsyslogd"})
+    Settings.insert({name: "rsyslogd", regex_content: "rsyslogd:.*", life: "7"})

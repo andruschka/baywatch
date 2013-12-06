@@ -12,51 +12,58 @@ Meteor.subscribe 'all_settings'
 Session.setDefault 'editSet', ''
 
 
-# Some client functions:
-
+# CHART-JS functions
 injectChartjs = ()->
 
-  logs = Logs.find()
-  colors = ["#F7464A", "#E2EAE9", "#949FB1"]
+  pieColors = ["#F7464A", "#E2EAE9", "#949FB1"]
+  lineStrokeColor = "rgba(97,169,255,1)"
+  lineFillColor = "rgba(97,169,255,0.5)"
+  lineLabels = ["last 7h", "last 6h", "last 5h", "last 3h", "last 2h", "last 1h", "just now"]
 
-  # Pie Chart for system based log- count
-  # get data from logs
-  sys = {}
+  logs = Logs.find()
+  sysCount = {}
+  timeStamps = []
+  
+  # loop through logs and collect data
   logs.forEach (log)->
     if log.parsed
       thisSys = log.parsed.system
-      if _.has(sys, thisSys) is false
-        sys["#{thisSys}"] = 1
+      if _.has(sysCount, thisSys) is false
+        sysCount["#{thisSys}"] = 1
       else
-        sys["#{thisSys}"] += 1
+        sysCount["#{thisSys}"] += 1
     else
       thisSys = 'NA'
-      if _.has(sys, thisSys) is false
-        sys["#{thisSys}"] = 1
+      if _.has(sysCount, thisSys) is false
+        sysCount["#{thisSys}"] = 1
       else
-        sys["#{thisSys}"] += 1
-  cnts= _.values sys
-  sysDat = []
+        sysCount["#{thisSys}"] += 1
+    timeStamps.push log.incomeMillis
+
+  # PIE CHART for system based log- count
+  cnts = _.values sysCount
+  pieData = []
   i = 0
   for cnt in cnts
-    ins = {'color':colors[i], 'value': cnt}
-    sysDat.push ins
+    ins = {'color':pieColors[i], 'value': cnt}
+    pieData.push ins
     i = i+1
-  sysData = sysDat
   # inject chart
-  sysCtx = $('#sysChart').get(0).getContext('2d')
-  new Chart(sysCtx).Pie(sysData)
+  pieCtx = $('#sysChart').get(0).getContext('2d')
+  new Chart(pieCtx).Pie(pieData)
   
-  
-  # Line Chart for timestamp based log- count
-  # Dummy data
-  logData = 
-    labels : ["last 7h", "last 6h", "last 5h", "last 3h", "last 2h", "last 1h", "just now"],
-    datasets : [
-        fillColor : "rgba(97,169,255,0.5)",
-        strokeColor : "rgba(97,169,255,1)",
-        data : [70,50,100,20,14,5,1]
-    ]  
-  # inject chart
-  logCtx = $('#logChart').get(0).getContext('2d')
-  new Chart(logCtx).Line(logData)
+  # LINE CHART for timestamp based log- count
+  # lineData =  [70,50,100,20,14,5,1]
+  lineData =  []
+  console.log timeStamps.length
+  # console.log lineData
+  # lineData = 
+  #   labels : lineLabels,
+  #   datasets : [
+  #       fillColor : lineFillColor,
+  #       strokeColor : lineStrokeColor,
+  #       data : lineData
+  #   ]  
+  # # inject chart
+  # lineCtx = $('#logChart').get(0).getContext('2d')
+  # new Chart(lineCtx).Line(lineData)
