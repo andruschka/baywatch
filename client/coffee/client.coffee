@@ -4,27 +4,19 @@
 Session.set('home.loading', true)
 
 Meteor.subscribe 'all_logs', ()->
-  Session.set('home.loading', false)
-  injectChartjs()
+  Session.set('home.loading', false)  
 
-Meteor.subscribe 'all_settings'
+  Meteor.subscribe 'all_settings', ()->
+    injectPieChart()
+    injectLineChart()    
 
 Session.setDefault 'editSet', ''
 
-
 # CHART-JS functions
-injectChartjs = ()->
-
-  pieColors = ["#F7464A", "#E2EAE9", "#949FB1"]
-  lineStrokeColor = "rgba(97,169,255,1)"
-  lineFillColor = "rgba(97,169,255,0.5)"
-  lineLabels = ["last 7h", "last 6h", "last 5h", "last 3h", "last 2h", "last 1h", "just now"]
-
-  logs = Logs.find()
+injectPieChart = ()->
+  pieColors = ["#F7464A", "#E2EAE9", "#949FB1", "#178eff", "#fff789", "#ff7fe2", "#7fff91", "#c1bcff", ]
   sysCount = {}
-  timeStamps = []
-  
-  # loop through logs and collect data
+  logs = Logs.find()
   logs.forEach (log)->
     if log.parsed
       thisSys = log.parsed.system
@@ -38,32 +30,53 @@ injectChartjs = ()->
         sysCount["#{thisSys}"] = 1
       else
         sysCount["#{thisSys}"] += 1
-    timeStamps.push log.incomeMillis
 
   # PIE CHART for system based log- count
   cnts = _.values sysCount
+  console.log cnts
   pieData = []
   i = 0
   for cnt in cnts
     ins = {'color':pieColors[i], 'value': cnt}
     pieData.push ins
     i = i+1
+  
   # inject chart
   pieCtx = $('#sysChart').get(0).getContext('2d')
   new Chart(pieCtx).Pie(pieData)
-  
+
+injectLineChart = ()->
   # LINE CHART for timestamp based log- count
-  # lineData =  [70,50,100,20,14,5,1]
-  lineData =  []
-  console.log timeStamps.length
-  # console.log lineData
-  # lineData = 
-  #   labels : lineLabels,
-  #   datasets : [
-  #       fillColor : lineFillColor,
-  #       strokeColor : lineStrokeColor,
-  #       data : lineData
-  #   ]  
-  # # inject chart
-  # lineCtx = $('#logChart').get(0).getContext('2d')
-  # new Chart(lineCtx).Line(lineData)
+  lineStrokeColor = "rgba(97,169,255,1)"
+  lineFillColor = "rgba(97,169,255,0.5)"
+  lineLabels = ["~60m","~45m","~30m","~15m"]
+  
+  nowTs = new Date().getTime()
+  
+  col1Ts = nowTs - 900000
+  col2Ts = col1Ts - 900000
+  col3Ts = col2Ts - 900000
+  col4Ts = col3Ts - 900000
+  
+  countData = []
+  
+  col1 = Logs.find({incomeMillis: {$lt: nowTs, $gt: col1Ts}}).count()
+  countData.push col1
+  col2 = Logs.find({incomeMillis: {$lt: col1Ts, $gt: col2Ts}}).count()
+  countData.push col2
+  col3 = Logs.find({incomeMillis: {$lt: col2Ts, $gt: col3Ts}}).count()
+  countData.push col3
+  col4 = Logs.find({incomeMillis: {$lt: col3Ts, $gt: col4Ts}}).count() 
+  countData.push col4
+  
+  lineData = 
+    labels : lineLabels,
+    datasets : [
+        fillColor : lineFillColor,
+        strokeColor : lineStrokeColor,
+        data : countData
+    ]    
+  console.log countData
+  # inject chart
+  lineCtx = $('#logChart').get(0).getContext('2d')
+  new Chart(lineCtx).Line(lineData)
