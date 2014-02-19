@@ -1,8 +1,13 @@
 @Logs = new Meteor.Collection 'logs'
 @Settings = new Meteor.Collection 'settings'
 
-Meteor.publish "all_logs", ()->
-  Logs.find()
+Meteor.publish "all_logs", (limit)->
+  if limit and limit?
+    logLimit = limit
+  else
+    logLimit = 30
+  Logs.find({},{sort: {incomeMillis: -1}, limit: logLimit})
+  
 
 Meteor.publish "all_settings", ()->
   Settings.find()

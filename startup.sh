@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p "Run in production mode? [y/n] -> " answer
+read -p "Run in PRODUCTION mode? [y/n] -> " answer
 
 while true
 do

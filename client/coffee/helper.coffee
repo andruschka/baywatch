@@ -33,7 +33,7 @@ Template.home.getDate = (mills)->
         return date.toLocaleString()
 
 Template.home.homeLoading = ()->
-  return Session.get('home.loading')
+  return Session.get('homeLoading')
 
 Template.home.getLvlClass = (lvl)->
   lvl = lvl.trim()

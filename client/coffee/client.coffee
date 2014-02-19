@@ -1,49 +1,36 @@
 @Logs = new Meteor.Collection 'logs'
 @Settings = new Meteor.Collection 'settings'
 
-Session.set('home.loading', true)
+Session.set('limit', 30)
+Session.set('homeLoading', true)
+Session.setDefault('editSet', '')
 
-Meteor.subscribe 'all_logs', ()->
-  Session.set('home.loading', false)  
 
-  Meteor.subscribe 'all_settings', ()->
-    injectPieChart()
-    injectLineChart()    
+Deps.autorun ->
+  Meteor.subscribe 'all_logs', Session.get('limit'), ()->
+    Session.set('homeLoading', false)
+    injectChartHTML()
+    
+    Meteor.subscribe 'all_settings', ()->
+      injectLineChart()
+      setNoti(5)
 
-Session.setDefault 'editSet', ''
+$(window).scroll ()->
+  if Session.get('homeLoading') is false
+    if $(window).scrollTop() >= $(document).height() - $(window).height() - 10
+      newLimit = Session.get('limit') + 50
+      Session.set('limit', newLimit )
+      console.log 'limit extended!'
 
-# CHART-JS functions
-injectPieChart = ()->
-  pieColors = ["#F7464A", "#E2EAE9", "#949FB1", "#178eff", "#fff789", "#ff7fe2", "#7fff91", "#c1bcff", ]
-  sysCount = {}
-  logs = Logs.find()
-  logs.forEach (log)->
-    if log.parsed
-      thisSys = log.parsed.system
-      if _.has(sysCount, thisSys) is false
-        sysCount["#{thisSys}"] = 1
-      else
-        sysCount["#{thisSys}"] += 1
+@injectChartHTML = ()->
+  cCont = $('#chartContainer')
+  lChart = '<center><canvas id="logChart" width="1140" height="150"></canvas></center'
+  sChart = '<center><canvas id="logChart" width="940" height="150"></canvas></center'
+  unless $('#logChart')[0]?
+    if $(window).width() < 1200
+      cCont.append(sChart)
     else
-      thisSys = 'NA'
-      if _.has(sysCount, thisSys) is false
-        sysCount["#{thisSys}"] = 1
-      else
-        sysCount["#{thisSys}"] += 1
-
-  # PIE CHART for system based log- count
-  cnts = _.values sysCount
-  console.log cnts
-  pieData = []
-  i = 0
-  for cnt in cnts
-    ins = {'color':pieColors[i], 'value': cnt}
-    pieData.push ins
-    i = i+1
-  
-  # inject chart
-  pieCtx = $('#sysChart').get(0).getContext('2d')
-  new Chart(pieCtx).Pie(pieData)
+      cCont.append(lChart)
 
 injectLineChart = ()->
   # LINE CHART for timestamp based log- count
@@ -76,7 +63,15 @@ injectLineChart = ()->
         strokeColor : lineStrokeColor,
         data : countData
     ]    
-  console.log countData
+  # console.log countData
   # inject chart
   lineCtx = $('#logChart').get(0).getContext('2d')
   new Chart(lineCtx).Line(lineData)
+
+setNoti = (num)->
+  if navigator.userAgent.indexOf('Safari') != -1 and navigator.userAgent.indexOf('Chrome') == -1
+    # its safari
+    document.title = "Baywatch ("+num+")"
+  else
+    Tinycon.setBubble(num)
+    document.title = "Baywatch ("+num+")"

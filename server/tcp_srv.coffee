@@ -8,14 +8,14 @@ if Meteor.settings.HOST and Meteor.settings.HOST? and Meteor.settings.PORT and M
 
   rgxSystem = new RegExp(/\s[A-Za-z]*:\s/)
 
-  net.createServer (sock)->
-    console.log 'SERVER CONNECTED TO : ' + sock.remoteAddress + ':'+ sock.remotePort
+  net.createServer {allowHalfOpen: true}, (sock)->
+    console.log '['+new Date+'] BAYWATCH CONNECTED TO ' + sock.remoteAddress + ':'+ sock.remotePort
 
     carrier.carry sock, (line)->
+      console.log "fetched line"
       Fiber ()->
         line = line.toString().trim()
         if line and line?
-          console.log "got a log line: " + line
           timestamp = Date.now()
           # get systemID from line and find a setting
           if rgxSystem.test(line) is true 
@@ -89,6 +89,7 @@ if Meteor.settings.HOST and Meteor.settings.HOST? and Meteor.settings.PORT and M
       console.log 'CLOSED DOWN'
 
   .listen(PORT, HOST)
-  console.log 'TCP Server running, listening on ' + HOST + ':' + PORT
+  console.log 'BAYWATCH listening on ' + HOST + ':' + PORT
+  
 else
   console.log "PLEASE START BAYWATCH WITH THE STARTUP SCRIPT"

@@ -4,6 +4,7 @@
     "lvlClassesInfo": ["INFO","info"],
     "lvlClassesWarning": ["WARNING","warning"],
     "lvlClassesError": ["ERROR","error"],
+    "entryLimit": 30,
     "timeStampFormat":
     {
       "ISOString":false,

@@ -2,29 +2,38 @@
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
     "branch": "master",
-    "commit": "444c56f1bdf5e5bc0ae7d2e020720f9ac6a1d422"
+    "commit": "4af3116d3faa3c4416dcfa49e32ea1d73dc15dc5"
   },
   "dependencies": {
     "basePackages": {
       "bootstrap-3": {},
-      "font-awesome-4": {},
-      "chartjs": {}
+      "font-awesome": {},
+      "chartjs": {},
+      "tinycon": {
+        "git": "https://github.com/and-fri/meteor-tinycon.git",
+        "branch": "master"
+      }
     },
     "packages": {
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v0.3.6",
-        "commit": "711dbcabe333c8714298b2fd1de97fdcdae6efa7"
+        "tag": "v3.1.0-1",
+        "commit": "329dccb08bfc18c635676dea600ac9953162cda9"
       },
-      "font-awesome-4": {
-        "git": "https://github.com/michaelbishop/meteor-font-awesome-4.git",
-        "tag": "v4.0.0",
-        "commit": "c28b5a0f2a2bd233c495642b40a167eda95172f5"
+      "font-awesome": {
+        "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
+        "tag": "v4.0.3",
+        "commit": "61e9361384347547ae144f8228faa4deffda23db"
       },
       "chartjs": {
         "git": "https://github.com/donskifarrell/meteor-chartjs.git",
         "tag": "v0.0.4",
         "commit": "9d2adcd1de3728c8227e8eb7da0dcb2e0df21d0b"
+      },
+      "tinycon": {
+        "git": "https://github.com/and-fri/meteor-tinycon.git",
+        "branch": "master",
+        "commit": "5d788a4cd03cda17a09b5e4a75f48d712a33cf48"
       }
     }
   }

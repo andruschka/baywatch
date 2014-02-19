@@ -5,7 +5,10 @@
   },
   "packages": {
     "bootstrap-3": {},
-    "font-awesome-4": {},
-    "chartjs": {}
+    "font-awesome": {},
+    "chartjs": {},
+    "tinycon": {
+      "git": "https://github.com/and-fri/meteor-tinycon.git"
+    }
   }
 }
