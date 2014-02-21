@@ -137,3 +137,22 @@ th {
     border-top: none;
     vertical-align: top;
 }
+.btn-outline:hover, .btn-outline:focus, .btn-outline:active {
+color: #fff;
+background-color: #49A5FE;
+border-color: #49A5FE;
+}
+.btn-outline {
+color: #49A5FE;
+background-color: transparent;
+border-color: #49A5FE;
+}
+#chartContainer{
+  background-color: #4A4A4A;
+}
+.shadowed{
+/*  box-shadow: 0 4px 4px -2px black;*/
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  	   -moz-box-shadow: 0 8px 6px -6px black;
+  	        box-shadow: 0 8px 6px -6px black;
+}

@@ -6,26 +6,31 @@ if Meteor.settings.HOST and Meteor.settings.HOST? and Meteor.settings.PORT and M
   HOST = Meteor.settings.HOST
   PORT = Meteor.settings.PORT
 
-  rgxSystem = new RegExp(/\s[A-Za-z]*:\s/)
+  rgxSystem = new RegExp(/###[A-Za-z]*###/)
 
   net.createServer {allowHalfOpen: true}, (sock)->
     console.log '['+new Date+'] BAYWATCH CONNECTED TO ' + sock.remoteAddress + ':'+ sock.remotePort
 
     carrier.carry sock, (line)->
-      console.log "fetched line"
       Fiber ()->
         line = line.toString().trim()
+        console.log line
+        console.log line
         if line and line?
           timestamp = Date.now()
           # get systemID from line and find a setting
           if rgxSystem.test(line) is true 
+            console.log 'fetched line from known fisher-system'
             rawSysId = line.match(rgxSystem)[0]
-            sysId = rawSysId.trim().toString().slice(0,-1)
+            sysId = rawSysId.replace /###/g, ''
+            console.log sysId
+            line = line.split('###'+sysId+'###')[1].trim()
+
             setting = Settings.findOne({name: sysId})
           
             # get regex patterns from setting doc
             if setting and setting? 
-            
+              console.log 'setting found'
               # test & parse rgx date
               if setting.regex_date and setting.regex_date?
                 rgx_date = new RegExp(setting.regex_date.toString())
@@ -76,6 +81,7 @@ if Meteor.settings.HOST and Meteor.settings.HOST? and Meteor.settings.PORT and M
                     else
                       Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
             else
+              console.log 'no setting'
               # no setting found for this system
               Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
           else

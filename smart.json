@@ -9,6 +9,7 @@
     "chartjs": {},
     "tinycon": {
       "git": "https://github.com/and-fri/meteor-tinycon.git"
-    }
+    },
+    "scroll-to-fixed": {}
   }
 }

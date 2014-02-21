@@ -1,4 +1,12 @@
 <template name="chart">
+  <div id="legend" width="{{width}}">
+    {{#each data.datasets}}
+      {{name}}
+    {{/each}}
+  </div>
   <!-- CHART JS -->
-  <div id="chartContainer" class="container hidden-xs hidden-sm"></div>
+  <div id="chartContainer" class="container hidden-xs hidden-sm">
+    <!-- The chart wil be injected here -->
+    <center><canvas id="logChart" width="{{width}}" height="150"></canvas></center>
+  </div>
 </template>

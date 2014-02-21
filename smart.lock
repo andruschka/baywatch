@@ -12,7 +12,8 @@
       "tinycon": {
         "git": "https://github.com/and-fri/meteor-tinycon.git",
         "branch": "master"
-      }
+      },
+      "scroll-to-fixed": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -34,6 +35,11 @@
         "git": "https://github.com/and-fri/meteor-tinycon.git",
         "branch": "master",
         "commit": "5d788a4cd03cda17a09b5e4a75f48d712a33cf48"
+      },
+      "scroll-to-fixed": {
+        "git": "https://github.com/and-fri/meteor-scroll-to-fixed.git",
+        "tag": "v0.0.1",
+        "commit": "d2cb3dfa93a00a9d52a7bf751a23dfe22522474a"
       }
     }
   }
