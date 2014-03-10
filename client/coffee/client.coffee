@@ -22,6 +22,7 @@ $(window).scroll ()->
       Session.set('limit', newLimit )
     else
       Session.set('limit', 30 )
+
 setNoti = (num)->
   if navigator.userAgent.indexOf('Safari') != -1 and navigator.userAgent.indexOf('Chrome') == -1
     # its safari
@@ -29,3 +30,7 @@ setNoti = (num)->
   else
     Tinycon.setBubble(num)
     document.title = "Baywatch ("+num+")"
+
+Router.map ()->
+  this.route 'home',
+    path: '/'
