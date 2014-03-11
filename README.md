@@ -1,5 +1,5 @@
 # Baywatch 
-This is a Tool for receiving log- messages from running **log harvester (LogFisher.js)**, parsing them with saved REGEX- settings before pushing them to a MongoDB / monitoring them in your browser - IN REALTIME.   
+This is a Tool for receiving log- messages from running **log harvester (like LogFisher.js)**, parsing them with saved REGEX- settings before pushing them to a MongoDB / monitoring them in your browser - IN REALTIME.   
 Made with Meteor.js <3   
 (You need npm on your machine)  
 ### Installation
