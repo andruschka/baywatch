@@ -9,7 +9,8 @@ bootstrap-3
 coffeescript
 font-awesome-4
 npm
-appcache
 chartjs
 tinycon
 scroll-to-fixed
+reststop2
+iron-router

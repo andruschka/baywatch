@@ -1,9 +1,9 @@
 {
   "public": 
   {
-    "lvlClassesInfo": ["INFO","info"],
-    "lvlClassesWarning": ["WARNING","warning"],
-    "lvlClassesError": ["ERROR","error"],
+    "lvlClassesInfo": ["INFO","info","Info"],
+    "lvlClassesWarning": ["WARNING","warning","Warning"],
+    "lvlClassesError": ["ERROR","error","Error"],
     "entryLimit": 30,
     "timeStampFormat":
     {
@@ -13,5 +13,6 @@
     }
   },
   "HOST":"127.0.0.1",
-  "PORT":"6969"
+  "PORT":"6969",
+  "API_AUTH_TOKEN":"logs@baywatch007"
 }

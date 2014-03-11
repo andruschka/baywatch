@@ -7,9 +7,8 @@
     "bootstrap-3": {},
     "font-awesome": {},
     "chartjs": {},
-    "tinycon": {
-      "git": "https://github.com/and-fri/meteor-tinycon.git"
-    },
-    "scroll-to-fixed": {}
+    "tinycon": {},
+    "scroll-to-fixed": {},
+    "iron-router":{}
   }
 }
