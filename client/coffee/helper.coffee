@@ -14,11 +14,13 @@ Template.home.logs = ()->
   filter = {incomeMillis: -1}
   if searchArr? and _.compact(searchArr).length > 0
     keywordArr = []  
+    syswordArr = []  
     for word in searchArr
       word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
       patWord = new RegExp(word, 'i')
-      keywordArr.push {rawLine: patWord}    
-    selector = { $and: keywordArr }
+      keywordArr.push {rawLine: patWord}
+      syswordArr.push {'parsed.system': patWord}
+    selector = {$or:[{$and:keywordArr},{$and:syswordArr}]}
   return Logs.find( selector ,{sort: filter})
 
 Template.home.getDate = (mills)->
