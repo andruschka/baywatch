@@ -22,13 +22,14 @@ if _config_.enabled? and _config_.enabled is true
           systemId = request.body.system
           if rawLine?
             line = rawLine
-            defaultLife = Settings.findOne({'name':'default'}).life
+            defaultLifeD = Settings.findOne({'name':'unknown'}).life
+            defaultLife = getDestroyAtMillis(defaultLifeD)
             if systemId?
               sysId = systemId
               setting = Settings.findOne({name: systemId})
               # get regex patterns from setting doc
               if setting and setting? 
-                console.log 'setting found'
+                # console.log 'setting found'
                 # test & parse rgx date
                 if setting.regex_date and setting.regex_date?
                   rgx_date = new RegExp(setting.regex_date.toString())
@@ -45,38 +46,21 @@ if _config_.enabled? and _config_.enabled is true
                 # test & parse rgx log lvl
                 if setting and setting? and setting.regex_lvl and setting.regex_lvl?
                   rgx_lvl = new RegExp(setting.regex_lvl.toString())
-                  console.log "testing log level"
+                  # console.log "testing log level"
                   if rgx_lvl.test(line) is true
                     lineLvl = line.match(rgx_lvl)[0].trim().toString()
-                    console.log "found log level: " + lineLvl 
+                    # console.log "found log level: " + lineLvl 
                 
                 # what is the lifetime of this post ?
                 if setting and setting? and setting.life and setting.life?
-                  if setting.life is "1"
-                    destroyAt = timestamp + 86400000
-                  if setting.life is "2"
-                    destroyAt = timestamp + (86400000*2)
-                  if setting.life is "3"
-                    destroyAt = timestamp + (86400000*3)
-                  if setting.life is "4"
-                    destroyAt = timestamp + (86400000*4)
-                  if setting.life is "5"
-                    destroyAt = timestamp + (86400000*5)
-                  if setting.life is "6"
-                    destroyAt = timestamp + (86400000*6)
-                  if setting.life is "7"
-                    destroyAt = timestamp + 604800000
-                  if setting.life is "31"
-                    destroyAt = timestamp + 2678400000
-                  if setting.life is "365"
-                    destroyAt = timestamp + 31536000000
-                  if setting.life is "-1"
-                    destroyAt = timestamp + 31536000000000
+                  destroyAt = getDestroyAtMillis(setting.life)
             
               if line?
                 newLogObj = {'rawLine':line, 'incomeMillis':timestamp, 'parsed': {}}
               if sysId?
                 newLogObj.parsed.system = sysId
+              else
+                newLogObj.parsed.system = 'unknown'
               if lineMillis?
                 newLogObj.parsed.lineMillis = lineMillis
               if lineContent?
@@ -85,18 +69,21 @@ if _config_.enabled? and _config_.enabled is true
                 newLogObj.parsed.lvl = lineLvl
               if destroyAt?
                 newLogObj.parsed.destroyAt = destroyAt
+              else
+                newLogObj.parsed.destroyAt = defaultLife
               newId = Logs.insert(newLogObj)
               # RESPONSE
               if newId?
                 response.writeHead(201, {'Content-Type':'text/html'})
                 response.end(newId)
             else
-              newId = Logs.insert({'rawLine':rawLine, 'incomeMillis':timestamp, 'parsed':{'life':defaultLife}})
+              newId = Logs.insert({'rawLine':rawLine, 'incomeMillis':timestamp, 'parsed':{'destroyAt':defaultLife, 'system':'unknown'}})
               # RESPONSE
               response.writeHead(201, {'Content-Type':'text/html'});
               response.end(newId);
           else
-            console.log 'received empty line'
+            # console.log 'received empty line'
+            undefined
         else
           response.writeHead(401, {'Content-Type':'text/html'});
           response.end('Invalid Auth key');

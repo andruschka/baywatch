@@ -30,7 +30,9 @@ Template.navbar.events
   'keyup [name=search]': (e,context)->
     searchString = e.currentTarget.value.toString().trim()
     Session.set('search_keywords', searchString)
-
+  'click #showAll' : (e)->
+    e.preventDefault()
+    Session.set 'limit', 1000000000
   'click #showSettings' : (e)->
     e.preventDefault()
     $('#settings-panel').fadeIn()
@@ -114,7 +116,7 @@ Template.helper.events
     newRgxLvl = $("#edit-rgx-lvl-#{self._id}").val().toString().trim()
     newRgxCon = $("#edit-rgx-content-#{self._id}").val().toString().trim()
     if self.life is newLife and self.regex_date is newRgxDate and self.regex_lvl is newRgxLvl and self.regex_content is newRgxCon
-      console.log "no new stuff here"
+      # no editions had been added ...
       # panel back to default
       inpLife = $("#edit-life-#{self._id}")
       inpDate = $("#edit-rgx-date-#{self._id}")

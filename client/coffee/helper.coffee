@@ -58,7 +58,6 @@ Template.home.getLvlClass = (lvl)->
   return result
 
 Template.helper.settings = ()->
-  console.log this
   return Settings.find()
 
 Template.helper.which_span = (life)->
@@ -83,3 +82,16 @@ Template.helper.which_span = (life)->
   if life is "-1"
     span = "permanent"    
   return span
+Template.chart.getDate = (mills)->
+  if mills?
+    date = new Date(mills)
+    if dateSetting.ISOString is true
+      return date.toISOString()
+    else
+      if dateSetting.DateString is true
+        return date.toString()
+      else
+        if dateSetting.LocaleString is true
+          return date.toLocaleString()
+  else
+    return 'loading...'

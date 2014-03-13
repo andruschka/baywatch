@@ -17,7 +17,8 @@ if _config_.enabled? and _config_.enabled is true
         line = line.toString().trim()
         if line and line?
           timestamp = Date.now()
-          defaultLife = Settings.findOne({'name':'default'}).life
+          defaultLifeD = Settings.findOne({'name':'unknown'}).life
+          defaultLife = getDestroyAtMillis(defaultLifeD)
           # get systemID from line and find a setting
           if rgxSystem.test(line) is true 
             rawSysId = line.match(rgxSystem)[0]
@@ -48,27 +49,7 @@ if _config_.enabled? and _config_.enabled is true
                 
               # what is the lifetime of this post ?
               if setting and setting? and setting.life and setting.life?
-                if setting.life is "1"
-                  destroyAt = timestamp + 86400000
-                if setting.life is "2"
-                  destroyAt = timestamp + (86400000*2)
-                if setting.life is "3"
-                  destroyAt = timestamp + (86400000*3)
-                if setting.life is "4"
-                  destroyAt = timestamp + (86400000*4)
-                if setting.life is "5"
-                  destroyAt = timestamp + (86400000*5)
-                if setting.life is "6"
-                  destroyAt = timestamp + (86400000*6)
-                if setting.life is "7"
-                  destroyAt = timestamp + 604800000
-                if setting.life is "31"
-                  destroyAt = timestamp + 2678400000
-                if setting.life is "365"
-                  destroyAt = timestamp + 31536000000
-                if setting.life is "-1"
-                  destroyAt = timestamp + 31536000000000
-            
+                destroyAt = getDestroyAtMillis(setting.life)
               # all patterns got parsed ?
               if lineMillis and lineMillis? and sysId and sysId? and lineContent and lineContent? and lineLvl and lineLvl? and destroyAt and destroyAt?
                 Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed': {'lineMillis':lineMillis, 'system':sysId, 'content':lineContent, 'lvl':lineLvl, 'destroyAt':destroyAt}})
@@ -85,12 +66,13 @@ if _config_.enabled? and _config_.enabled is true
                       Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
             else
               # no setting found for this system
-              Logs.insert({'rawLine':line, 'incomeMillis':timestamp})
+              Logs.insert({'rawLine':line, 'incomeMillis':timestamp,'parsed':{'destroyAt':defaultLife, 'system':'unknown'}})
           else
             # no system id found in line ...
-            Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed':{'life':defaultLife}})
+            Logs.insert({'rawLine':line, 'incomeMillis':timestamp, 'parsed':{'destroyAt':defaultLife, 'system':'unknown'}})
         else
-          console.log "empty line..."
+          # console.log "empty line..."
+          undefined
       .run()
 
     sock.on 'close', (data)->
