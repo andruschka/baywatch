@@ -7,7 +7,7 @@ if Meteor.settings and Meteor.settings? and Meteor.settings.public and Meteor.se
 else
   alert "PLEASE START BAYWATCH WITH THE STARTUP SCRIPT"
 
-Template.home.logs = ()->
+@currentLogs = ()->
   searchString = Session.get('search_keywords')
   searchArr = searchString.split(',') if searchString?  
   selector = {}
@@ -22,6 +22,9 @@ Template.home.logs = ()->
       syswordArr.push {'parsed.system': patWord}
     selector = {$or:[{$and:keywordArr},{$and:syswordArr}]}
   return Logs.find( selector ,{sort: filter})
+
+Template.home.logs = ()->
+  return currentLogs()
 
 Template.home.getDate = (mills)->
   date = new Date(mills)
@@ -55,19 +58,28 @@ Template.home.getLvlClass = (lvl)->
   return result
 
 Template.helper.settings = ()->
+  console.log this
   return Settings.find()
 
 Template.helper.which_span = (life)->
   if life is "1"
     span = "1 day"
-  else
-    if life is "7"
-      span = "1 week"
-    else
-      if life is "31"
-        span = "1 month"
-      else if life is "365"
-        span = "1 year"
-      else
-        span = "permanent"
+  if life is "2"
+    span = "2 days"
+  if life is "3"
+    span = "3 days"
+  if life is "4"
+    span = "4 days"
+  if life is "5"
+    span = "5 days"
+  if life is "6"
+    span = "6 days"
+  if life is "7"
+    span = "1 week"
+  if life is "31"
+    span = "1 month"
+  if life is "365"
+    span = "1 year"
+  if life is "-1"
+    span = "permanent"    
   return span

@@ -19,6 +19,7 @@ $(window).scroll ()->
   if $(window).scrollTop() >= $(document).height() - $(window).height() - 20
     newLimit = Session.get('limit') + 50
     Session.set('limit', newLimit )
+
 setNoti = (num)->
   if navigator.userAgent.indexOf('Safari') != -1 and navigator.userAgent.indexOf('Chrome') == -1
     # its safari

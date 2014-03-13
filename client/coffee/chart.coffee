@@ -5,18 +5,7 @@
 #     return 1140
 #     
 # @lineDataFromLogs = ()->
-#   searchString = Session.get('search_keywords')
-#   searchArr = searchString.split(',') if searchString?  
-#   selector = {}
-#   filter = {incomeMillis: -1}
-#   if searchArr? and _.compact(searchArr).length > 0
-#     keywordArr = []  
-#     for word in searchArr
-#       word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-#       patWord = new RegExp(word, 'i')
-#       keywordArr.push {rawLine: patWord}    
-#     selector = { $and: keywordArr }
-#   logCollectionForChart = Logs.find( selector ,{sort: filter}).fetch() # data for charts
+#   logCollectionForChart = currentLogs().fetch()
 #   if logCollectionForChart.length > 0
 #     maxIM = _.max logCollectionForChart, (log)->
 #       return log.incomeMillis

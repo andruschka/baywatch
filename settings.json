@@ -12,7 +12,15 @@
       "LocaleString":true
     }
   },
-  "HOST":"127.0.0.1",
-  "PORT":"6969",
-  "API_AUTH_TOKEN":"logs@baywatch007"
+  "tcpServer":
+  {
+    "enabled":  true,
+    "HOST":     "127.0.0.1",
+    "PORT":     "6969"
+  },
+  "apiServer":
+  {
+    "enabled":  true,
+    "API_AUTH_TOKEN":"logs@baywatch007"
+  }
 }
