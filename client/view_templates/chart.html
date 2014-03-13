@@ -1,9 +1,9 @@
 <template name="chart">
-  <div id="legend" width="{{width}}">
+  <ul id="legend" width="{{width}}" style="color:white;">
     {{#each data.datasets}}
-      {{name}}
+      <li>{{name}}</li>
     {{/each}}
-  </div>
+  </ul>
   <!-- CHART JS -->
   <div id="chartContainer" class="container hidden-xs hidden-sm">
     <!-- The chart wil be injected here -->

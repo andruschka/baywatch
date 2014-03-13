@@ -8,11 +8,8 @@ Session.setDefault('editSet', '')
 
 Deps.autorun ->
   Meteor.subscribe 'all_logs', Session.get('limit'), ()->
-    Session.set('homeLoading', false)
-    
+    Session.set('homeLoading', false)    
     Meteor.subscribe 'all_settings', ()->
-      # injectChartHTML()
-      # refreshChart()
       setNoti(0)
 
 $(window).scroll ()->
@@ -21,12 +18,15 @@ $(window).scroll ()->
     Session.set('limit', newLimit )
 
 setNoti = (num)->
-  if navigator.userAgent.indexOf('Safari') != -1 and navigator.userAgent.indexOf('Chrome') == -1
-    # its safari
-    document.title = "Baywatch ("+num+")"
+  if num > 1
+    if navigator.userAgent.indexOf('Safari') != -1 and navigator.userAgent.indexOf('Chrome') == -1
+      # its safari
+      document.title = "Baywatch ("+num+")"
+    else
+      Tinycon.setBubble(num)
+      document.title = "Baywatch ("+num+")"
   else
-    Tinycon.setBubble(num)
-    document.title = "Baywatch ("+num+")"
+    document.title = "Baywatch"
 
 Router.map ()->
   this.route 'home' ,

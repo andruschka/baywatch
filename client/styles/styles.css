@@ -157,3 +157,8 @@ border-color: #49A5FE;
   	   -moz-box-shadow: 0 8px 6px -6px black;
   	        box-shadow: 0 8px 6px -6px black;
 }
+#legend{
+  position:fixed;
+  top:55px;
+  left:10px;
+}
