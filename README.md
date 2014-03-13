@@ -10,7 +10,10 @@ Made with Meteor.js <3
 You should get LogFisher.js (a small NodeJS app) for watching log files / sending them to Baywatch.   
 (But you are also free to build your own log harvester.)
 #### Sending Logs
+POST request to:   
 ``http://your.url/api/logs/insert``
+data:   
+``{'line':'(your log line here...)', 'system':'(with which setting the line should be parsed...)'}``
 #### Getting a specific log object
 ``http://your.url/api/log/:id``   
-``replace :id with id of existing log object from Baywatch DB``
+``replace :id with _id of existing log object from Baywatch DB``
