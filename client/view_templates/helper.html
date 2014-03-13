@@ -8,9 +8,8 @@
             <h4 class="modal-title">Settings</h4>
           </div>
           <div class="modal-body">
-            <button id="addSetting" class="btn btn-block btn-outline"><i class="fa fa-plus"></i> new setting</button>
+            <button id="addSetting" class="btn btn-block btn-outline btn-success"><i class="fa fa-plus"></i> new setting</button>
 
-            <!-- <center><h4>your settings:</h4></center> -->
               {{#each settings}}
                 <h3>
                   {{name}}
@@ -26,6 +25,11 @@
                     <select id="new-life-{{_id}}" class="new-life-select form-control">
                       <option value="-1">permanent</option>
                       <option value="1">1 day</option>
+                      <option value="2">2 days</option>
+                      <option value="3">3 days</option>
+                      <option value="4">4 days</option>
+                      <option value="5">5 days</option>
+                      <option value="6">6 days</option>
                       <option value="7">1 week</option>
                       <option value="31">1 month</option>
                       <option value="365">1 year</option>
@@ -68,14 +72,19 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="set-name">Name</label>
-              <input id="set-name" type="text" class="form-control"  placeholder="Filter Name">
+              <label for="set-name">Name / Tag (which you assigned in LogFisher.js)</label>
+              <input id="set-name" type="text" class="form-control"  placeholder="Name / Tag">
             </div>
             <div class="form-group">
               <label for="set-life">Lifetime</label>
               <select id="set-life" class="form-control">
                 <option value="-1">permanent</option>
                 <option value="1">1 day</option>
+                <option value="2">2 days</option>
+                <option value="3">3 days</option>
+                <option value="4">4 days</option>
+                <option value="5">5 days</option>
+                <option value="6">6 days</option>
                 <option value="7">1 week</option>
                 <option value="31">1 month</option>
                 <option value="365">1 year</option>
@@ -95,13 +104,13 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button id="addNewSetting" class="btn btn-success">add</button> 
+            <button id="createNewSetting" class="btn btn-success">add</button> 
             <button class="btn btn-danger close-panels">close</button>
           </div>
         </div>
       </div>
   </div>
-    
+  
   <!-- DARK BACKGROUND FOR PANELS -->
   <div id="darken"></div>
   

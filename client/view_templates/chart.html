@@ -1,9 +1,9 @@
 <template name="chart">
-  <div id="legend" width="{{width}}">
-    {{#each data.datasets}}
-      {{name}}
-    {{/each}}
-  </div>
+  <span id="legend" width="{{width}}" style="color:#999;font-size:11px;">
+    {{#if data}}
+      {{getDate data.latestTs}} - now
+    {{/if}}
+  </span>
   <!-- CHART JS -->
   <div id="chartContainer" class="container hidden-xs hidden-sm">
     <!-- The chart wil be injected here -->
