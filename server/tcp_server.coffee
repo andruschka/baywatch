@@ -1,3 +1,6 @@
+###
+    THIS IS NOT SUPPORTED ANYMORE - Please use BAYWATCH API instead of tcp inputs    
+###
 if Meteor.settings?
   _config_ = Meteor.settings.tcpServer
   HOST = _config_.HOST

@@ -38,8 +38,14 @@
                     <label for="">RegExp for the DATE</label>
                     <input class="form-control" id="edit-rgx-date-{{_id}}" type="text" value="{{regex_date}}" disabled>
 
-                    <label for="">RegExp for the Log Level</label>
+                    <label for="">RegExp for the LOG LEVEL</label>
                     <input class="form-control" id="edit-rgx-lvl-{{_id}}" type="text" value="{{regex_lvl}}" disabled>
+
+                    <label for="">RegExp for NOTIFICATIONS (Errors etc.)</label>
+                    <input class="form-control" id="edit-rgx-notification-{{_id}}" type="text" value="{{regex_notification}}" disabled>
+
+                    <label for="">Email notification to</label>
+                    <input class="form-control" id="edit-email-to-{{_id}}" type="text" value="{{listMails email_to}}" disabled>
 
                     <label for="">RegExp for the CONTENT</label>
                     <input class="form-control" id="edit-rgx-content-{{_id}}" type="text" value="{{regex_content}}" disabled>
@@ -95,8 +101,16 @@
               <input id="set-rgx-date"  class="form-control" rows="5" placeholder="New regular expression"/>
             </div>
             <div class="form-group">
-              <label for="set-rgx-lvl">RegExp for the Log Level</label>
+              <label for="set-rgx-lvl">RegExp for the LOG LEVEL</label>
               <input id="set-rgx-lvl"  class="form-control" rows="5" placeholder="New regular expression"/>
+            </div>
+            <div class="form-group">
+              <label for="set-rgx-notification">RegExp for the NOTIFICATIONS (Errors etc.)</label>
+              <input id="set-rgx-notification"  class="form-control" rows="5" placeholder="New regular expression"/>
+            </div>
+            <div class="form-group">
+              <label for="set-eamil-to">Email notification to</label>
+              <input id="set-email-to"  class="form-control" rows="5" placeholder="Email(s) seperated by ' '"/>
             </div>
             <div class="form-group">
               <label for="set-rgx-content">RegExp for the CONTENT</label>

@@ -20,8 +20,8 @@ Settings.allow
   remove: ()->
     return true
 
-# scheduled job for deleting logs
-Meteor.startup ()->
+Meteor.startup ()->  
+  # scheduled job for deleting logs
   Meteor.setInterval ()->
     now = Date.now()
     Logs.remove({"parsed.destroyAt": {$lt: now} })
@@ -32,6 +32,7 @@ Meteor.startup ()->
   , 60000
   unless Settings.findOne({name: "unknown"})
     Settings.insert({name: "unknown", life: "7"})
+
 
 @getDestroyAtMillis = (life)->
   timestamp = new Date().getTime()

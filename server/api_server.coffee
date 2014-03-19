@@ -1,10 +1,8 @@
+### 
+BAYWATCH API (beta) currently authorization only via predefined x-auth-token...
+### 
 if Meteor.settings?
   _config_ = Meteor.settings.apiServer
-
-####################################################################################
-# BAYWATCH API (beta) currently authorization only via predefined x-auth-token...  #
-####################################################################################
-# ITS API TIME
 if _config_.enabled? and _config_.enabled is true
   Router.map ()->
 
@@ -51,6 +49,13 @@ if _config_.enabled? and _config_.enabled is true
                     lineLvl = line.match(rgx_lvl)[0].trim().toString()
                     # console.log "found log level: " + lineLvl 
                 
+                # send Email if notification regex can parse
+                if setting and setting? and setting.regex_notification? and setting.email_to?
+                  rgx_notification = new RegExp(setting.regex_notification.toString())
+                  if rgx_notification.test(line) is true
+                    sendMail setting.email_to, "System: #{setting.name}", "Log notification got triggered by:\n #{line}"
+                  undefined
+
                 # what is the lifetime of this post ?
                 if setting and setting? and setting.life and setting.life?
                   destroyAt = getDestroyAtMillis(setting.life)

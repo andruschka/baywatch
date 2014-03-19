@@ -22,5 +22,12 @@
   {
     "enabled":  true,
     "API_AUTH_TOKEN":"logs@baywatch007"
+  },
+  "smtp_settings":
+  {
+    "user":   "no-reply",
+    "pass":   "noreply@mails007",
+    "server": "mails.relax",
+    "port":   25
   }
 }

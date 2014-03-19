@@ -82,6 +82,9 @@ Template.helper.which_span = (life)->
   if life is "-1"
     span = "permanent"    
   return span
+Template.helper.listMails = (emlArr)->
+  if emlArr?
+    return emlArr.join ' '
 Template.chart.getDate = (mills)->
   if mills?
     date = new Date(mills)
