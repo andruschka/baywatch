@@ -14,4 +14,7 @@ POST request to: ``http://your.url/api/logs/insert``
 data: ``{'line':'(your log line here...)', 'system':'(name of the setting this line should be parsed with)'}``
 #### Getting a specific log object
 ``http://your.url/api/log/:id``   
-replace :id with _id of existing log object from Baywatch DB
+replace :id with _id of existing log object from Baywatch DB  
+#### TCP server
+``$mrt add npm``  
+and set tcp . enabled to true in settings.json  

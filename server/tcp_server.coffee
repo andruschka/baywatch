@@ -1,6 +1,3 @@
-Fiber = Meteor.require 'fibers'
-net = Meteor.require 'net'
-carrier = Meteor.require 'carrier'
 if Meteor.settings?
   _config_ = Meteor.settings.tcpServer
   HOST = _config_.HOST
@@ -9,6 +6,10 @@ if Meteor.settings?
 rgxSystem = new RegExp(/\s[A-Za-z]*:\s/)
 
 if _config_.enabled? and _config_.enabled is true
+  Fiber = Meteor.require 'fibers'
+  net = Meteor.require 'net'
+  carrier = Meteor.require 'carrier'
+  
   net.createServer (sock)->
     console.log 'SERVER CONNECTED TO : ' + sock.remoteAddress + ':'+ sock.remotePort
 
