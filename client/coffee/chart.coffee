@@ -8,7 +8,7 @@ Template.chart.width = ()->
 
 dataFromLogs= ()->
   allSettings = Settings.find()
-  allLogs = currentLogs()
+  allLogs = currentLogs().fetch()
   systems = []
   logCounts = []
 
