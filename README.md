@@ -11,7 +11,18 @@ You should get LogFisher.js (a small NodeJS app) for watching log files / sendin
 (But you are also free to build your own log harvester.)
 #### Sending Logs
 POST request to: ``http://your.url/api/logs/insert``   
-data: ``{'line':'(your log line here...)', 'system':'(name of the setting this line should be parsed with)'}``
+data: ``{'line':'(your log line here...)', 'system':'(name of the setting this line should be parsed with)'}``  
+Example ajax.js post:
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:3000/api/logs/insert",
+      dataType: 'json',
+      async: false, 
+      headers:{'X-Auth-Token':"logs@baywatch007"},
+      data: {'line':'Hello from your browser', 'system':'Baywatch'}
+    });
+
 #### Getting a specific log object
 ``http://your.url/api/log/:id``   
 replace :id with _id of existing log object from Baywatch DB  
