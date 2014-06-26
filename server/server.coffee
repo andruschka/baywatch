@@ -66,23 +66,25 @@ Meteor.startup ()->
 
 @getDestroyAtMillis = (life)->
   timestamp = new Date().getTime()
-  if life is "1"
-    destroyAt = timestamp + 86400000
-  if life is "2"
-    destroyAt = timestamp + (86400000*2)
-  if life is "3"
-    destroyAt = timestamp + (86400000*3)
-  if life is "4"
-    destroyAt = timestamp + (86400000*4)
-  if life is "5"
-    destroyAt = timestamp + (86400000*5)
-  if life is "6"
-    destroyAt = timestamp + (86400000*6)
-  if life is "7"
-    destroyAt = timestamp + 604800000
-  if life is "31"
-    destroyAt = timestamp + 2678400000
-  if life is "365"
-    destroyAt = timestamp + 31536000000
-  if life is "-1"
-    destroyAt = timestamp + 31536000000000
+  switch life
+    when "1"
+      destroyAt = timestamp + 86400000
+    when "2"
+      destroyAt = timestamp + (86400000*2)
+    when "3"
+      destroyAt = timestamp + (86400000*3)
+    when "4"
+      destroyAt = timestamp + (86400000*4)
+    when "5"
+      destroyAt = timestamp + (86400000*5)
+    when "6"
+      destroyAt = timestamp + (86400000*6)
+    when "7"
+      destroyAt = timestamp + 604800000
+    when "31"
+      destroyAt = timestamp + 2678400000
+    when "365"
+      destroyAt = timestamp + 31536000000
+    when "-1"
+      destroyAt = timestamp + 31536000000000
+  return destroyAt
