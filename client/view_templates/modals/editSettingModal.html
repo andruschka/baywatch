@@ -1,0 +1,57 @@
+<template name="editSettingModal">
+
+  <!-- NEW SETTING PANEL -->
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit setting</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="set-name">Sytem Name / Tag (which you assigned in LogFisher.js)</label>
+              <input id="set-name" type="text" class="form-control"  value="{{name}}" disabled>
+            </div>
+            <div class="form-group">
+              <label for="set-life">Lifetime</label>
+              <select id="set-life" class="form-control">
+                <option value="-1">permanent</option>
+                <option value="1">1 day</option>
+                <option value="2">2 days</option>
+                <option value="3">3 days</option>
+                <option value="4">4 days</option>
+                <option value="5">5 days</option>
+                <option value="6">6 days</option>
+                <option value="7">1 week</option>
+                <option value="31">1 month</option>
+                <option value="365">1 year</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="set-rgx-date">RegExp for the DATE</label>
+              <input id="set-rgx-date"  class="form-control" rows="5" placeholder="New regular expression" value="{{regex_date}}"/>
+            </div>
+            <div class="form-group">
+              <label for="set-rgx-lvl">RegExp for the LOG LEVEL</label>
+              <input id="set-rgx-lvl"  class="form-control" rows="5" placeholder="New regular expression" value="{{regex_lvl}}"/>
+            </div>
+            <div class="form-group">
+              <label for="set-rgx-notification">RegExp for the NOTIFICATIONS (Errors etc.)</label>
+              <input id="set-rgx-notification"  class="form-control" rows="5" placeholder="New regular expression" value="{{regex_notification}}"/>
+            </div>
+            <div class="form-group">
+              <label for="set-eamil-to">Email notification to</label>
+              <input id="set-email-to"  class="form-control" rows="5" placeholder="Email(s) seperated by ' '" value="{{listMails email_to}}"/>
+            </div>
+            <div class="form-group">
+              <label for="set-rgx-content">RegExp for the CONTENT</label>
+              <input id="set-rgx-content"  class="form-control" rows="5" placeholder="New regular expression" value="{{regex_content}}"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="save-changes btn btn-outline-green">save</button> 
+            <button class="btn btn-outline-red" data-dismiss="modal">close</button>
+          </div>
+        </div>
+      </div>
+      
+</template>

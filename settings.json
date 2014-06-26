@@ -12,12 +12,6 @@
       "LocaleString":true
     }
   },
-  "tcpServer":
-  {
-    "enabled":  false,
-    "HOST":     "127.0.0.1",
-    "PORT":     "6969"
-  },
   "apiServer":
   {
     "enabled":  true,
@@ -25,9 +19,9 @@
   },
   "smtp_settings":
   {
-    "user":   "no-reply",
-    "pass":   "noreply@mails007",
-    "server": "mails.relax",
+    "user":   "SomeUser123",
+    "pass":   "helloNSA123",
+    "server": "mails.com",
     "port":   25
   }
 }

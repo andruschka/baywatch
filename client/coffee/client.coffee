@@ -3,12 +3,13 @@
 
 Session.setDefault('limit', 50)
 Session.set('homeLoading', true)
-Session.setDefault('editSet', '')
+Session.setDefault('search_keywords', '')
+Session.setDefault('filter_systems', '')
 
 
 Deps.autorun ->
-  Meteor.subscribe 'all_logs', Session.get('limit'), ()->
-    Session.set('homeLoading', false)    
+  Meteor.subscribe 'all_logs', Session.get('limit'), Session.get('search_keywords'), Session.get('filter_systems'), ()->
+    Session.set('homeLoading', false)
     Meteor.subscribe 'all_settings', ()->
       setNoti(0)
 
@@ -27,6 +28,9 @@ setNoti = (num)->
       document.title = "Baywatch ("+num+")"
   else
     document.title = "Baywatch"
+
+Router.configure 
+  layoutTemplate: 'appLayout'
 
 Router.map ()->
   this.route 'home' ,

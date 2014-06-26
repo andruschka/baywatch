@@ -7,35 +7,20 @@ if Meteor.settings and Meteor.settings? and Meteor.settings.public and Meteor.se
 else
   alert "PLEASE START BAYWATCH WITH THE STARTUP SCRIPT"
 
-@currentLogs = ()->
-  searchString = Session.get('search_keywords')
-  searchArr = searchString.split(',') if searchString?  
-  selector = {}
-  filter = {incomeMillis: -1}
-  if searchArr? and _.compact(searchArr).length > 0
-    keywordArr = []  
-    syswordArr = []  
-    for word in searchArr
-      word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-      patWord = new RegExp(word, 'i')
-      keywordArr.push {rawLine: patWord}
-      syswordArr.push {'parsed.system': patWord}
-    selector = {$or:[{$and:keywordArr},{$and:syswordArr}]}
-  return Logs.find( selector ,{sort: filter})
-
 Template.home.logs = ()->
-  return currentLogs()
+  return Logs.find({}, {sort: {incomeMillis: -1}})
 
 Template.home.getDate = (mills)->
-  date = new Date(mills)
-  if dateSetting.ISOString is true
-    return date.toISOString()
-  else
-    if dateSetting.DateString is true
-      return date.toString()
+  if mills?
+    date = new Date(mills)
+    if dateSetting.ISOString is true
+      return date.toISOString()
     else
-      if dateSetting.LocaleString is true
-        return date.toLocaleString()
+      if dateSetting.DateString is true
+        return date.toString()
+      else
+        if dateSetting.LocaleString is true
+          return date.toLocaleString()
 
 Template.home.homeLoading = ()->
   return Session.get('homeLoading')
@@ -57,10 +42,10 @@ Template.home.getLvlClass = (lvl)->
         result = "lvlNA"
   return result
 
-Template.helper.settings = ()->
+Template.settingsModal.settings = ()->
   return Settings.find()
 
-Template.helper.which_span = (life)->
+UI.registerHelper 'which_span', (life)->
   if life is "1"
     span = "1 day"
   if life is "2"
@@ -82,10 +67,21 @@ Template.helper.which_span = (life)->
   if life is "-1"
     span = "permanent"    
   return span
-Template.helper.listMails = (emlArr)->
+
+UI.registerHelper 'listMails', (emlArr)->
   if emlArr?
     return emlArr.join ' '
+
+UI.registerHelper 'systemFilterVal', ()->
+  if Session.get 'filter_systems'
+    return Session.get 'filter_systems'
+
+UI.registerHelper 'searchVal', ()->
+  if Session.get 'search_keywords'
+    return Session.get 'search_keywords'
+
 Template.chart.getDate = (mills)->
+  console.log mills
   if mills?
     date = new Date(mills)
     if dateSetting.ISOString is true
@@ -98,3 +94,9 @@ Template.chart.getDate = (mills)->
           return date.toLocaleString()
   else
     return 'loading...'
+
+UI.registerHelper 'desktop', ()->
+  if $(window).width() > 990
+    return true
+  else
+    return false

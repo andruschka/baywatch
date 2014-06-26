@@ -29,20 +29,20 @@ if _config_.enabled? and _config_.enabled is true
               if setting and setting? 
                 # console.log 'setting found'
                 # test & parse rgx date
-                if setting.regex_date and setting.regex_date?
+                if setting.regex_date and setting.regex_date? and setting.regex_date isnt ''
                   rgx_date = new RegExp(setting.regex_date.toString())
                   if rgx_date.test(line) is true
                     lineDatestamp = line.match(rgx_date)[0].trim().toString()
                     lineMillis = new Date(lineDatestamp).getTime()
             
                 # test & parse rgx content
-                if setting and setting? and setting.regex_content and setting.regex_content?
+                if setting and setting? and setting.regex_content and setting.regex_content? and setting.regex_content isnt ''
                   rgx_content = new RegExp(setting.regex_content.toString())
                   if rgx_content.test(line) is true
                     lineContent = line.match(rgx_content)[0].trim().toString()  
 
                 # test & parse rgx log lvl
-                if setting and setting? and setting.regex_lvl and setting.regex_lvl?
+                if setting and setting? and setting.regex_lvl and setting.regex_lvl? and setting.regex_lvl isnt ''
                   rgx_lvl = new RegExp(setting.regex_lvl.toString())
                   # console.log "testing log level"
                   if rgx_lvl.test(line) is true
@@ -50,7 +50,7 @@ if _config_.enabled? and _config_.enabled is true
                     # console.log "found log level: " + lineLvl 
                 
                 # send Email if notification regex can parse
-                if setting and setting? and setting.regex_notification? and setting.email_to?
+                if setting and setting? and setting.regex_notification? and setting.email_to? and setting.regex_notification isnt ''
                   rgx_notification = new RegExp(setting.regex_notification.toString())
                   if rgx_notification.test(line) is true
                     sendMail setting.email_to, "System: #{setting.name}", "Log notification got triggered by:\n #{line}"

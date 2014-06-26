@@ -1,12 +1,42 @@
 @Logs = new Meteor.Collection 'logs'
 @Settings = new Meteor.Collection 'settings'
 
-Meteor.publish "all_logs", (limit)->
+Meteor.publish "all_logs", (limit, searchString, sysString)->
+  selector = {}
+  filter = {incomeMillis: -1}
+  
+  searchArr = searchString.split(',') if searchString?  
+  if searchArr? and _.compact(searchArr).length > 0
+    keywordArr = []  
+    for word in searchArr
+      word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+      patWord = new RegExp(word, 'i')
+      keywordArr.push {rawLine: patWord}
+    selector1 = {$and:keywordArr}
+
+  sysArr = sysString.split(',') if sysString?  
+  if sysArr? and _.compact(sysArr).length > 0
+    syswordArr = []  
+    for word in sysArr
+      word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+      patWord = new RegExp(word, 'i')
+      syswordArr.push {'parsed.system': patWord}
+    selector2 = {$or:syswordArr}
+
+
   if limit and limit?
     logLimit = limit
   else
     logLimit = 30
-  Logs.find({},{sort: {incomeMillis: -1}, limit: logLimit})
+
+  if selector1?
+    selector = selector1
+  if selector2?
+    selector = selector2
+  if selector1? and selector2?
+    selector = {$and:[selector1,selector2]}  
+  
+  return Logs.find(selector, {sort: filter, limit: logLimit})
   
 
 Meteor.publish "all_settings", ()->

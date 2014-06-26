@@ -7,11 +7,11 @@
       <br><br>
     {{else}}
       <!-- LOG STREAM TABLE -->
-      <table class="table table-responsive table-striped table-condensed" id="stream">
+      <table class="table table-responsive table-striped table-condensed {{#if desktop}}fixed-stream{{/if}}" id="stream">
         <col width="10%"/>
-        <col width="20%"/>
+        <col width="15%"/>
         <col width="10%" />
-        <col width="60%"/>
+        <col width="70%"/>
         <thead>
           <tr>
             <th class="">Sys.</th>
@@ -52,7 +52,7 @@
               </center></td>
 
               <!-- message -->
-              <td id="line-{{_id}}" class="nowrap-line line">
+              <td id="line-{{_id}}" class="line {{#if desktop}}nowrap-line{{/if}}">
                 {{#if parsed.content}}
                   <span class="lineParsed">{{parsed.content}}</span>
                 {{else}}
@@ -67,4 +67,6 @@
       </table>
     {{/if}}
   </div>
+  <!-- Modal Space -->
+  <div class="modal fade" id="modal-space"></div>
 </template>
