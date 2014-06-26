@@ -20,7 +20,6 @@ dataFromLogs= ()->
       logCounts.push count
     else
       logCounts.push 0
-    console.log logCounts
   data = {
     dataStack: {
       labels : systems,
@@ -39,7 +38,6 @@ Template.chart.rendered = ()->
   cntxt = this.find('#logChart').getContext('2d')
   Deps.autorun ->
     data = dataFromLogs().dataStack
-    console.log data
     new Chart(cntxt).Bar data
 
   $('#chartContainer').scrollToFixed
