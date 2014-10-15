@@ -1,8 +1,9 @@
 # TEMPLATE EVENTS
-Template.home.events  
-  'click .line' : (e)->
+Template.home.events
+  'click .log-line' : (e)->
     e.preventDefault()
-    $("#line-#{this._id}").toggleClass('nowrap-line')
+    console.log e.currentTarget
+    $(e.currentTarget).toggleClass('nowrap-line')
 
   'click .system' : (e)->
     sTxt = $('#system-filter').val()
@@ -25,7 +26,7 @@ Template.home.events
     else
       Session.set('search_keywords', lvl)
       $('#search').val(lvl)
-
+  
 Template.navbar.events
   'keyup #system-filter': (e,context)->
     searchString = e.currentTarget.value.toString().trim()
@@ -35,21 +36,20 @@ Template.navbar.events
     Session.set('search_keywords', searchString)
   'click #showAll' : (e)->
     e.preventDefault()
-    Session.set 'limit', 1000000000
+    Session.set 'logLimit', 1000000000
   'click #show-settings' : (e)->
     e.preventDefault()
     ms = $('#modal-space')
-    settings = UI.renderWithData(Template.settingsModal , Settings.find())
-    UI.insert(settings, ms.get(0))
+    settings = Blaze.renderWithData(Template.settingsModal , Settings.find(), ms.get(0))
     ms.modal('show')
     ms.on 'hidden.bs.modal', (e)->
-      ms.html("")
+      Blaze.remove(settings)
   'click #login': (e)->
       e.preventDefault()
       if Meteor.user() is null or Meteor.user() is undefined
         service = Accounts.loginServiceConfiguration.findOne({service: Meteor.settings.public.ownauth.serviceName})
         console.log service
-        if service?      
+        if service?
           Meteor.loginWithOwnauth {}, (error, result)->
             if error?
               console.log "Error on authentication: #{error}"
@@ -63,11 +63,10 @@ Template.appLayout.events
     ms = $('#modal-space')
     ms.modal('hide')
     Meteor.setTimeout ()->
-      ctxt = UI.render(Template.newSettingModal)
-      UI.insert(ctxt, ms.get(0))
+      newSetting = Blaze.render(Template.newSettingModal, ms.get(0))
       ms.modal('show')
       ms.on 'hidden.bs.modal', (e)->
-        ms.html("")
+        Blaze.remove(newSetting)
     , 750
   'click #createNewSetting' : (e)->
     e.preventDefault()
@@ -78,7 +77,7 @@ Template.appLayout.events
     rgx_notification = $('#set-rgx-notification').val().toString().trim()
     emlArr = $('#set-email-to').val().toString().trim().split(' ')
     emlArr = _.compact emlArr
-    rgx_content = $('#set-rgx-content').val().toString().trim()    
+    rgx_content = $('#set-rgx-content').val().toString().trim()
     if name and name?
       unless Settings.findOne({name: name})?
         hash = {}
@@ -135,12 +134,11 @@ Template.appLayout.events
     ms = $('#modal-space')
     ms.modal('hide')
     Meteor.setTimeout ()->
-      edit = UI.renderWithData(Template.editSettingModal, self)
-      UI.insert(edit, ms.get(0))
+      edit = Blaze.renderWithData(Template.editSettingModal, self, ms.get(0))
       $("#set-life option[value=#{self.life}]").attr("selected", "selected")
       ms.modal('show')
       ms.on 'hidden.bs.modal', (e)->
-        ms.html("")
+        Blaze.remove(edit)
     , 750
   'click .save-changes' : (e)->
     e.preventDefault()

@@ -1,43 +1,39 @@
 @Logs = new Meteor.Collection 'logs'
 @Settings = new Meteor.Collection 'settings'
 
-Meteor.publish "all_logs", (limit, searchString, sysString)->
+Meteor.publish "all_logs", (logCursor, searchStr, systemStr)->
+  sortSel = {incomeMillis: -1}
+
+  if searchStr?
+    searchArr = searchStr.split(',')
+    if searchArr? and _.compact(searchArr).length > 0
+      keywordArr = []
+      for word in searchArr
+        word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+        patWord = new RegExp(word, 'i')
+        keywordArr.push {rawLine: patWord}
+      selector1 = {$and:keywordArr}
+
+  if systemStr?
+    sysArr = systemStr.split(',')
+    if sysArr? and _.compact(sysArr).length > 0
+      syswordArr = []
+      for word in sysArr
+        word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+        patWord = new RegExp(word, 'i')
+        syswordArr.push {'parsed.system': patWord}
+      selector2 = {$or:syswordArr}
+
+  # build the selector
   selector = {}
-  filter = {incomeMillis: -1}
-  
-  searchArr = searchString.split(',') if searchString?  
-  if searchArr? and _.compact(searchArr).length > 0
-    keywordArr = []  
-    for word in searchArr
-      word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-      patWord = new RegExp(word, 'i')
-      keywordArr.push {rawLine: patWord}
-    selector1 = {$and:keywordArr}
-
-  sysArr = sysString.split(',') if sysString?  
-  if sysArr? and _.compact(sysArr).length > 0
-    syswordArr = []  
-    for word in sysArr
-      word = word.trim().replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-      patWord = new RegExp(word, 'i')
-      syswordArr.push {'parsed.system': patWord}
-    selector2 = {$or:syswordArr}
-
-
-  if limit and limit?
-    logLimit = limit
-  else
-    logLimit = 30
-
+  selectorArr = []
   if selector1?
-    selector = selector1
+    selectorArr.push(selector1)
   if selector2?
-    selector = selector2
-  if selector1? and selector2?
-    selector = {$and:[selector1,selector2]}  
-  
-  return Logs.find(selector, {sort: filter, limit: logLimit})
-  
+    selectorArr.push(selector2)
+  if selector1? or selector2?
+    selector = {$and: selectorArr}
+  return Logs.find({}, {sort: sortSel, limit: logCursor})
 
 Meteor.publish "all_settings", ()->
   Settings.find()

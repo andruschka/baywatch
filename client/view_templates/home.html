@@ -1,72 +1,96 @@
 <template name="home">  
   <!-- LOGS -->
-  <div class="container home">        
+  <div class="container home" style="margin-bottom:50px;">
     {{#if homeLoading}}
       <br><br><br><br>
       <center><h2 class="loading">loading <i class="fa fa-refresh fa-spin"></i></h2></center>
       <br><br>
     {{else}}
-      <!-- LOG STREAM TABLE -->
-      <table class="table table-responsive table-striped table-condensed {{#if desktop}}fixed-stream{{/if}}" id="stream">
-        <col width="10%"/>
-        <col width="15%"/>
-        <col width="10%" />
-        <col width="70%"/>
-        <thead>
-          <tr>
-            <th class="">Sys.</th>
-            <th class="">Timestamp</th>
-            <th class=""><center>LVL</center></th>
-            <th class="">Log Message</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each logs}}
-            <tr>
 
-              <!-- system -->
-              <td class="systems">
+      <!-- LOG STREAM -->
+      <div class="row hidden-xs">
+        <div id="table-legend" class="log" style="background-color:#222;color:#fff;">
+            <!-- log system -->
+            <div class="log-system col-sm-2">
+              SYSTEM
+            </div>
+            <!-- log timestamp -->
+            <div class="log-timestamp col-sm-2">
+              TIMESTAMP
+            </div>
+            <!-- log level -->
+            <div class="log-level col-sm-1">
+              LOGLVL
+            </div>
+            <!-- log message -->
+            <div class=" col-sm-7 nowrap-line">
+              LOG MESSAGE
+            </div>    
+        </div>
+      </div>
+      <section class="log-stream">
+        
+        {{#each logs}}
+          <article class="log row">
+              <!-- log system -->
+              <div class="log-system col-sm-2">
                 {{#if parsed.system}}
                   <span class="system">{{parsed.system}}</span>
                 {{else}}
                   NA
                 {{/if}}
-              </td>
-
-              <!-- timestamp -->
-              <td class="times">
+              </div>
+              <!-- log timestamp -->
+              <div class="log-timestamp col-sm-2">
                 {{#if parsed.lineMillis}}
                   {{getDate parsed.lineMillis}}
                 {{else}}
                   {{getDate incomeMillis}}
                 {{/if}}
-              </td>
-
-              <!-- lvl -->
-              <td class="lvls"><center>
+              </div>
+              <!-- log level -->
+              <div class="log-level col-sm-1">
                 {{#if parsed.lvl}}
                   <span class="{{getLvlClass parsed.lvl}} lvl">{{parsed.lvl}}</span>
                 {{else}}
                   <span class="lvlNA">NA</span>
                 {{/if}}
-              </center></td>
+              </div>
+              <!-- log message -->
+              <div class="log-line col-sm-7 nowrap-line">
+                {{rawLine}}
+              </div>
+          </article>
+          <div class="hidden-sm hidden-md hidden-lg xs-device-seperator">
+            <hr>
+          </div>
+        {{else}}
+          <article class="log row">
+              <!-- log system -->
+              <div class="log-system col-sm-2">
+                -
+              </div>
+              <!-- log timestamp -->
+              <div class="log-timestamp col-sm-2">
+                -
+              </div>
+              <!-- log level -->
+              <div class="log-level col-sm-1">
+                -
+              </div>
+              <!-- log message -->
+              <div class="log-line col-sm-7 nowrap-line">
+                No logs found...
+              </div>
+          </article>
+        {{/each}}
+      </section>
 
-              <!-- message -->
-              <td id="line-{{_id}}" class="line {{#if desktop}}nowrap-line{{/if}}">
-                {{#if parsed.content}}
-                  <span class="lineParsed">{{parsed.content}}</span>
-                {{else}}
-                  <span class="lineNotParsed">{{rawLine}}</span>
-                {{/if}}
-              </td>
-
-            </tr>
-          {{/each}}
-
-        </tbody>
-      </table>
     {{/if}}
+
+
   </div>
+
   <!-- Modal Space -->
   <div class="modal fade" id="modal-space"></div>
 </template>

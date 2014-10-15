@@ -139,25 +139,41 @@ body {
   color:#fff;
   font-size:11px;
 }
+
+
+
 /* ######## STREAM TABLE STYLES ######## */
-.fixed-stream{
+section.log-stream {
   color:#fff;
-  table-layout:fixed;
-  overflow:inherit;
 }
-th {
-  color:#C7C7C7;
+article.log {
+/*  border-bottom:1px solid black;*/
+  margin-bottom:5px;
 }
-.systems{
-  color:#f4fff6;
+article.log:hover{
+  background:rgba(204, 255, 253, 0.19);
+}
+.spacerheight{
+  height:20px!important;
+}
+.log-system{
+/*  color:#f4fff6;*/
+  color:rgba(56, 163, 223, 1);
   text-shadow: black 0.1em 0.1em 0.2em;
 }
-.system{
+.system {
   cursor:pointer;
 }
-.line{
+.log-line{
   font-size:14px;
   cursor:pointer;
+}
+.log-timestamp{
+/*  color:#C7C7C7;*/
+  color:#47A276;
+  white-space:nowrap;
+  word-break:inherit;
+  overflow:inherit; 
 }
 .nowrap-line{
   white-space:nowrap;
@@ -185,24 +201,7 @@ th {
 .lvlWarning{
   color:#ffca7f;
 }
-.times{
-  color:#C7C7C7;
-/*  font-size:14px;*/
-  white-space:nowrap;
-  word-break:inherit;
-  overflow:inherit; 
-}
-.table > thead > tr > th {
-    border-bottom: 1px solid #020c04;
-}
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-/*    background: rgba(49, 49, 49, 0.05) url('/bg-main.png') repeat 0 0;*/
-    background-color:rgba(57, 100, 121, 0.12);
-}
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-    border-top: none;
-    vertical-align: top;
-}
+
 /* OUTLINE BTNS */
 .btn.btn-outline-red{
   color: #d43f3a;

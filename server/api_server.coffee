@@ -77,7 +77,7 @@ if _config_.enabled? and _config_.enabled is true
               else
                 newLogObj.parsed.destroyAt = defaultLife
               newId = Logs.insert(newLogObj)
-              console.log newLogObj
+              # console.log newLogObj
               # RESPONSE
               if newId?
                 response.writeHead(201, {'Content-Type':'text/html'})

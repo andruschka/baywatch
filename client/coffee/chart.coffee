@@ -1,11 +1,12 @@
 # Temporary fix for chartJS -> switched to bar charts without showing time spans
-Template.chart.width = ()->
-  if $(window).width() < 1200
-    return 940
-  else
-    return 1140
+Template.chart.helpers
+  width: ()->
+    if $(window).width() < 1200
+      return 940
+    else
+      return 1140
 
-dataFromLogs= ()->
+@dataFromLogs = ()->
   allSettings = Settings.find()
   systems = []
   logCounts = []
@@ -33,21 +34,3 @@ dataFromLogs= ()->
     }
   }
   return data
-
-Template.chart.rendered = ()->
-  cntxt = this.find('#logChart').getContext('2d')
-  Deps.autorun ->
-    data = dataFromLogs().dataStack
-    new Chart(cntxt).Bar data
-
-  $('#chartContainer').scrollToFixed
-    marginTop: 51, 
-    dontSetWidth: true,
-    spacerClass: 'space',
-    preFixed: ()->
-      $('#chartContainer').addClass('shadowed')
-    preUnfixed: ()->
-      $('#chartContainer').removeClass('shadowed')
-  # fix for multiple scrolltofixed spacers because of rerendering chart template...
-  $('.space').not(':first').remove();
-  undefined

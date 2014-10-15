@@ -4,12 +4,11 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-preserve-inputs
-bootstrap-3
 coffeescript
-chartjs
-tinycon
-scroll-to-fixed
-iron-router
-font-awesome
 email
+ian:bootstrap-3
+alamont:chartjs
+andruschka:tinycon
+andruschka:scroll-to-fixed
+iron:router
+natestrauser:font-awesome
