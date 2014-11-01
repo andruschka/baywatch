@@ -1,5 +1,5 @@
 <template name="navbar">
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
@@ -7,31 +7,28 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="#" class="navbar-brand navLogo"> <i class="fa fa-anchor"></i> BAYWATCH</a>
+        <a href="#" class="navbar-brand navLogo"> <i class="fa fa-anchor animated bounceInDown"></i> BAYWATCH</a>
       </div>
       <div class="navbar-collapse collapse">
+
         <ul class="nav navbar-nav navbar-left">
           <li><a id="show-settings">Log settings</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="http://docs.relax/" target="_blank">The documentation</a></li>
-              <li><a href="https://github.com/and-fri/regex_patterns/blob/master/patterns.txt" target="_blank">Example patterns</a></li>
-            </ul>
-          </li>
         </ul>
 
-        <ul class="navbar-form navbar-right" style="padding-bottom:0!important;">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="show-settings">Andrej Fritz</a></li>
+        </ul>
+
+        <!-- <ul class="navbar-form navbar-right" style="padding-bottom:0!important;">
           <div class="form-group">
             <input mame="system-filter" id="system-filter" tabindex="1" type="text" class="form-control" placeholder="Filter systems" value="{{systemFilterVal}}">
           </div>
           <div class="form-group">
             <input name="search" id="search" tabindex="2" type="text" class="form-control" placeholder="Search in newest logs" value="{{searchVal}}">
           </div>
-          <!-- <a href="#" class="btn btn-outline-blue" id="showAll">show all</a> -->
-          <!-- <a href="#" class="btn btn-outline-green" id="login"><span class="glyphicon glyphicon-log-in"></span></a> -->
-        </ul>
+        </ul> -->
+
       </div>
     </div>
-  </div>
+  </nav>
 </template>

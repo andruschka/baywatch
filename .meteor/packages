@@ -6,9 +6,12 @@
 standard-app-packages
 coffeescript
 email
-ian:bootstrap-3
 alamont:chartjs
 andruschka:tinycon
 andruschka:scroll-to-fixed
 iron:router
 natestrauser:font-awesome
+natestrauser:animate-css
+mizzao:bootstrap-3
+andruschka:bootstrap-paper
+

@@ -9,24 +9,7 @@ Session.setDefault('filter_systems', '')
 Deps.autorun ->
   Meteor.subscribe 'all_logs', Session.get('logCursor'), Session.get('search_keywords'), Session.get('filter_systems'), ()->
     Session.set('homeLoading', false)
-    Meteor.subscribe 'all_settings', ()->
-      cntxt = $('#logChart').get(0).getContext('2d')
-      data = dataFromLogs().dataStack
-      new Chart(cntxt).Bar data
-
-# # remote access to production server for testing ******************************
-# remote = DDP.connect('http://show.logs.relax/')
-# @Logs = new Meteor.Collection 'logs', remote
-# @Settings = new Meteor.Collection 'settings', remote
-# Deps.autorun ->
-#   remote.subscribe 'all_logs', Session.get('logCursor'), Session.get('search_keywords'), Session.get('filter_systems'), ()->
-#     Session.set('homeLoading', false)
-#     remote.subscribe 'all_settings', ()->
-#       cntxt = $('#logChart').get(0).getContext('2d')
-#       data = dataFromLogs().dataStack
-#       new Chart(cntxt).Bar data
-#
-# # ******************************************************************************
+    Meteor.subscribe 'all_settings'
 
 $(window).scroll ()->
   if $(window).scrollTop() >= $(document).height() - $(window).height() - 300

@@ -1,9 +1,12 @@
 Router.configure 
   layoutTemplate: 'appLayout'
 
-Router.map ()->
-  this.route 'home' ,
-    path: '/'
-    template: 'home'
-  this.route 'notFound' ,
-    path: '*'
+Router.route '/', ()->
+	this.render 'home'
+
+Router.route '/login', ()->
+	this.render 'login'
+
+Router.route '/(.*)', ()->
+	this.render 'notFound'
+	
